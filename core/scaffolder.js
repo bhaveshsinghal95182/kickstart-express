@@ -17,11 +17,8 @@ export class Scaffolder {
       docker: false,
       language: "ts",
     };
-    const __dirname = path.dirname(fileURLToPath(import.meta.url)); 
-    this.templatePath = path.resolve(
-      __dirname,
-      "../templates"
-    );
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    this.templatePath = path.resolve(__dirname, "../templates");
   }
 
   async run() {
@@ -107,8 +104,16 @@ export class Scaffolder {
 
     if (this.options.language) {
       const languageFolder = this.options.language;
-      await fs.copy(path.join(this.templatePath, "base", languageFolder), dest);
+      await fs.copy(
+        path.join(this.templatePath, "base", languageFolder),
+        dest,
+        { dot: true }
+      );
     }
+
+    const envContent = "PORT=3000";
+    const envPath = path.join(dest, ".env");
+    await fs.writeFile(envPath, envContent);
 
     if (this.options.src) {
       const destSrcPath = path.join(dest, "src");
@@ -150,7 +155,7 @@ export class Scaffolder {
         this.templatePath,
         "modules",
         "docker",
-        language,
+        language
       );
       await fs.copy(dockerfileSource, dest);
     }
