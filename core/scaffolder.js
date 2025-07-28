@@ -20,7 +20,7 @@ export class Scaffolder {
     const __dirname = path.dirname(fileURLToPath(import.meta.url)); 
     this.templatePath = path.resolve(
       __dirname,
-      "../../templates"
+      "../templates"
     );
   }
 
