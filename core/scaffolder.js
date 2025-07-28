@@ -4,6 +4,7 @@ import path from "path";
 import { exec as execCallback } from "child_process";
 import { promisify } from "util";
 import ora from "ora";
+import { fileURLToPath } from "url";
 
 const exec = promisify(execCallback);
 
@@ -16,8 +17,9 @@ export class Scaffolder {
       docker: false,
       language: "ts",
     };
+    const __dirname = path.dirname(fileURLToPath(import.meta.url)); 
     this.templatePath = path.resolve(
-      new URL(import.meta.url).pathname,
+      __dirname,
       "../../templates"
     );
   }
