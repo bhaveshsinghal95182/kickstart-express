@@ -1,0 +1,24 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
+  "bin": {
+    "create-express-app": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "fs-extra": "^11.3.0",
+    "inquirer": "^12.8.2",
+    "ora": "^8.2.0",
+    "prompts": "^2.4.2"
+  }
+}

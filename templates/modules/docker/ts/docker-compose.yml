@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-express-app-ts
+    ports:
+      - "3000:3000"
+    # Mounts the local 'src' folder and tsconfig.json
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+    # Environment variables can be defined here or in a .env file
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    # The command to run the app using a dev script
+    command: pnpm dev

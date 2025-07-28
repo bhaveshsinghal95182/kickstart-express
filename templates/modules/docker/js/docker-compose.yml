@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-express-app-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/usr/src/app/src
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    command: pnpm dev
