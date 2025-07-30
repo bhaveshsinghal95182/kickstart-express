@@ -107,7 +107,7 @@ export class Scaffolder {
       await fs.copy(
         path.join(this.templatePath, "base", languageFolder),
         dest,
-        { dot: true }
+        { globOptions: { dot: true } }
       );
     }
 
