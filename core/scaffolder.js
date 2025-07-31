@@ -164,6 +164,16 @@ export class Scaffolder {
     const pkgPath = path.join(dest, "package.json");
     const pkg = await fs.readJson(pkgPath);
     pkg.name = this.projectName;
+    
+    // Update dev script based on src folder choice
+    if (this.options.src) {
+      if (this.options.language === "js") {
+        pkg.scripts.dev = "nodemon src/index.js";
+      } else if (this.options.language === "ts") {
+        pkg.scripts.dev = "tsx watch src/index.ts";
+      }
+    }
+    
     await fs.writeJson(pkgPath, pkg, { spaces: 2 });
   }
 }

@@ -1,20 +1,14 @@
-FROM node:24-alpine AS base
+FROM node:24-alpine
 WORKDIR /usr/src/app
 
 RUN npm install -g pnpm
 
-
-FROM base AS deps
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --prod
 
-
-FROM base AS production
-ENV NODE_ENV=production
-
-COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY . .
 
+ENV NODE_ENV=production
 EXPOSE 3000
 
 CMD [ "node", "src/index.js" ]
