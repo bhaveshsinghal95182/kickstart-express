@@ -1,7 +1,7 @@
 {
   "name": "js",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express.js API built with JavaScript",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "keywords": [],
+  "keywords": ["express", "javascript", "api", "server"],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",

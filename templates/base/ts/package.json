@@ -1,14 +1,14 @@
 {
   "name": "base",
   "version": "1.0.0",
-  "description": "",
+  "description": "Express.js API built with TypeScript",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
-  "keywords": [],
+  "keywords": ["express", "typescript", "api", "server"],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/express": "^5.0.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   }
 }

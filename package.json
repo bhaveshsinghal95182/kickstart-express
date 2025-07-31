@@ -1,14 +1,26 @@
 {
   "name": "kickstart-express",
   "version": "1.1.0",
-  "description": "",
+  "description": "A powerful CLI tool to quickly scaffold Express.js projects with modern tooling and best practices",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "scaffold",
+    "cli",
+    "generator",
+    "typescript",
+    "javascript",
+    "boilerplate",
+    "template",
+    "kickstart",
+    "nodejs",
+    "web-framework"
+  ],
+  "author": "bhaveshsinghal95182",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "bin": {
