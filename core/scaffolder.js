@@ -165,12 +165,27 @@ export class Scaffolder {
     const pkg = await fs.readJson(pkgPath);
     pkg.name = this.projectName;
     
-    // Update dev script based on src folder choice
+    // Update scripts based on src folder choice
     if (this.options.src) {
       if (this.options.language === "js") {
         pkg.scripts.dev = "nodemon src/index.js";
+        pkg.scripts.start = "node src/index.js";
       } else if (this.options.language === "ts") {
         pkg.scripts.dev = "tsx watch src/index.ts";
+        // build and start scripts remain the same for TS with src folder
+        // as tsconfig.json is already configured for src folder
+      }
+    } else {
+      // No src folder - update TypeScript tsconfig.json if needed
+      if (this.options.language === "ts") {
+        const tsconfigPath = path.join(dest, "tsconfig.json");
+        const tsconfig = await fs.readJson(tsconfigPath);
+        
+        // Update tsconfig for root-level TypeScript files
+        tsconfig.compilerOptions.rootDir = "./";
+        tsconfig.include = ["*.ts"];
+        
+        await fs.writeJson(tsconfigPath, tsconfig, { spaces: 2 });
       }
     }
     
