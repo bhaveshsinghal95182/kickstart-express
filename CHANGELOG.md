@@ -11,7 +11,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.1.2] - Current Version
+## [1.1.3] - Current Version
+### Patches
+- Updated project documentation and changelog maintenance
+- Improved CLI tool reliability and stability
+- Enhanced dependency management and compatibility
+- Minor bug fixes and performance optimizations
+
+## [1.1.2] - Previous Patch
 ### Patches
 - Bug fixes and stability improvements
 - Enhanced error handling in CLI prompts
