@@ -15,7 +15,7 @@ export class Scaffolder {
       src: cliOptions.src !== undefined ? cliOptions.src : null,
       structuredSrc: cliOptions.structuredSrc !== undefined ? cliOptions.structuredSrc : null,
       docker: cliOptions.docker !== undefined ? cliOptions.docker : null,
-      language: cliOptions.language || "ts",
+      language: cliOptions.language || "ts", // Default to TypeScript
     };
     this.cliOptions = cliOptions;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
