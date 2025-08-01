@@ -11,7 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.1.3] - Current Version
+## [1.2.0] - Current Version
+### Features
+- Enhanced CLI prompts for better user experience
+- Improved template selection process
+
+## [1.1.3] - Previous Version
 ### Patches
 - Updated project documentation and changelog maintenance
 - Improved CLI tool reliability and stability
@@ -24,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Enhanced error handling in CLI prompts
 - Improved dependency management
 
-## [1.1.1] - Previous Patch
+## [1.1.1] 
 ### Patches
 - Fixed template copying issues
 - Resolved path resolution problems in various environments
