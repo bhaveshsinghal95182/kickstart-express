@@ -20,6 +20,10 @@ export class Scaffolder {
     this.cliOptions = cliOptions;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     this.templatePath = path.resolve(__dirname, "../templates");
+    
+    // Track project creation state for cleanup
+    this.projectCreationInProgress = false;
+    this.projectPath = null;
   }
 
   getGitignoreContent() {
@@ -166,13 +170,15 @@ vite.config.ts.timestamp-*`;
 
   async run() {
     await this.promptUser();
-    const projectPath = path.join(process.cwd(), this.projectName);
+    this.projectPath = path.join(process.cwd(), this.projectName);
+    this.projectCreationInProgress = true;
 
     await this.generateProject();
 
     console.log("⚙️  Initializing Git and installing dependencies...");
-    await this.runCommands(projectPath);
+    await this.runCommands(this.projectPath);
 
+    this.projectCreationInProgress = false;
     console.log(`\n✅ Project ${this.projectName} scaffolded successfully!`);
     console.log(`\nNavigate to your project and start developing:\n`);
     console.log(`  cd ${this.projectName}`);
@@ -271,7 +277,7 @@ vite.config.ts.timestamp-*`;
   }
 
   async generateProject() {
-    const dest = path.join(process.cwd(), this.projectName);
+    const dest = this.projectPath;
 
     if (this.options.language) {
       const languageFolder = this.options.language;
@@ -375,5 +381,22 @@ vite.config.ts.timestamp-*`;
     }
     
     await fs.writeJson(pkgPath, pkg, { spaces: 2 });
+  }
+
+  // Methods for graceful error handling
+  isProjectCreationInProgress() {
+    return this.projectCreationInProgress;
+  }
+
+  async cleanup() {
+    if (this.projectPath && await fs.pathExists(this.projectPath)) {
+      try {
+        await fs.remove(this.projectPath);
+        console.log(`🗑️  Removed partially created project: ${this.projectName}`);
+      } catch (error) {
+        console.log(`⚠️  Could not remove project directory: ${error.message}`);
+        console.log(`📁 Please manually remove: ${this.projectPath}`);
+      }
+    }
   }
 }

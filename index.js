@@ -1,8 +1,29 @@
 #! /usr/bin/env node
 import { Command } from 'commander';
 import { Scaffolder } from "./core/scaffolder.js";
+import chalk from 'chalk';
 
 const program = new Command();
+
+// Graceful handling for Ctrl+C (SIGINT)
+let scaffolder = null;
+
+process.on('SIGINT', async () => {
+  console.log('\n');
+  console.log(chalk.yellow('⚠️  Operation cancelled by user'));
+  
+  if (scaffolder && scaffolder.isProjectCreationInProgress()) {
+    console.log(chalk.yellow('🧹 Cleaning up partially created project...'));
+    try {
+      await scaffolder.cleanup();
+    } catch (error) {
+      console.log(chalk.red('⚠️  Error during cleanup:'), error.message);
+    }
+  }
+  
+  console.log(chalk.blue('👋 Thanks for using kickstart-express!'));
+  process.exit(130); // Standard exit code for SIGINT
+});
 
 program
   .name('kickstart-express')
@@ -35,5 +56,5 @@ if (providedArgs.includes('--structured')) {
   cliOptions.structuredSrc = true;
 }
 
-const scaffolder = new Scaffolder(cliOptions);
+scaffolder = new Scaffolder(cliOptions);
 await scaffolder.run();
