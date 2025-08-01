@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { MainNav } from "@/components/main-nav"
 
 export default function Home() {
@@ -41,66 +42,66 @@ export default function Home() {
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">Interactive & Non-Interactive CLI</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Use prompts or pass arguments for instant scaffolding
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">TypeScript & JavaScript Support</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Choose your preferred language with full type support
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">Docker Ready</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Optional Docker configuration included for easy deployment
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">Modern Tooling</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Pre-configured with ESLint, hot reloading, and build scripts
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">Flexible Architecture</h3>
-                  <p className="text-sm text-muted-foreground">
-                    From simple to enterprise-ready project structures
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <div className="space-y-2">
-                  <h3 className="font-bold">Best Practices</h3>
-                  <p className="text-sm text-muted-foreground">
-                    CORS, environment variables, and structured routing included
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Interactive & Non-Interactive CLI</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Use prompts or pass arguments for instant scaffolding
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>TypeScript & JavaScript Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Choose your preferred language with full type support
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Docker Ready</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Optional Docker configuration included for easy deployment
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Modern Tooling</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Pre-configured with ESLint, hot reloading, and build scripts
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Flexible Architecture</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  From simple to enterprise-ready project structures
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Best Practices</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  CORS, environment variables, and structured routing included
+                </CardDescription>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -115,9 +116,10 @@ export default function Home() {
             </p>
           </div>
           <div className="mx-auto max-w-[58rem] space-y-4">
-            <div className="rounded-lg border bg-muted p-4">
-              <pre className="text-sm">
-                <code>{`# Install globally
+            <Card>
+              <CardContent className="pt-6">
+                <pre className="text-sm overflow-x-auto">
+                  <code>{`# Install globally
 npm install -g kickstart-express
 
 # Create a new project
@@ -125,8 +127,9 @@ kickstart-express
 
 # Or use npx (no installation required)
 npx kickstart-express --name my-api --language ts --docker --src --structured`}</code>
-              </pre>
-            </div>
+                </pre>
+              </CardContent>
+            </Card>
             <div className="flex justify-center">
               <Link href="/docs/getting-started">
                 <Button>View Full Documentation</Button>
