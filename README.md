@@ -8,6 +8,7 @@ A powerful CLI tool to quickly scaffold Express.js projects with modern tooling 
 ## 🚀 Features
 
 - **Interactive & Non-Interactive CLI** - Use prompts or pass arguments for instant scaffolding
+- **Graceful Interruption Handling** - Safe Ctrl+C handling with automatic cleanup of partial projects
 - **TypeScript & JavaScript Support** - Choose your preferred language
 - **Flexible Project Structure** - From simple to enterprise-ready architectures
 - **Docker Ready** - Optional Docker configuration included

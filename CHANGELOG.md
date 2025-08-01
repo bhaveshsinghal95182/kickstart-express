@@ -11,7 +11,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.2.0] - Current Version
+## [1.3.0] - Current Version
+### Features
+- **Graceful Ctrl+C Shutdown**: Added comprehensive SIGINT handling for interrupting project creation
+  - Proper cleanup of partially created projects when user cancels with Ctrl+C
+  - User-friendly messaging during cancellation process
+  - Automatic removal of incomplete project directories
+  - Standard exit codes for interrupted operations
+- Enhanced error handling during project creation cleanup process
+
+## [1.2.0] - Previous Version  
 ### Features
 - Enhanced CLI prompts for better user experience
 - Improved template selection process

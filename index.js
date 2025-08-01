@@ -28,7 +28,7 @@ process.on('SIGINT', async () => {
 program
   .name('kickstart-express')
   .description('A powerful CLI tool to quickly scaffold Express.js projects with modern tooling and best practices')
-  .version('1.1.3')
+  .version('1.3.0')
   .option('-n, --name <project-name>', 'project name')
   .option('-l, --language <ts|js>', 'language to use (ts or js)')
   .option('-d, --docker', 'include Dockerfile')
