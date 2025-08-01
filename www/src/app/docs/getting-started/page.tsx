@@ -41,7 +41,7 @@ export default function GettingStartedPage() {
             Requirements
           </h2>
           <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-            <li><strong>Node.js</strong> >= 18.0.0</li>
+            <li><strong>Node.js</strong> {">="} 18.0.0</li>
             <li><strong>pnpm</strong> (recommended) or npm</li>
             <li><strong>Git</strong> (for project initialization)</li>
           </ul>
