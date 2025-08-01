@@ -249,11 +249,28 @@ Contain business logic, data processing, and external API calls.
 ### Models
 Define data structures, interfaces, and type definitions.
 
+## 📚 Documentation
+
+For comprehensive documentation, visit the [docs](./docs/) folder:
+
+- **[Getting Started](./docs/getting-started.md)** - Installation and first steps
+- **[CLI Reference](./docs/cli-reference.md)** - Complete command-line options
+- **[Usage Examples](./docs/examples.md)** - Real-world examples and use cases
+- **[Project Templates](./docs/templates.md)** - Understanding generated structures
+- **[API Reference](./docs/api-reference.md)** - Programmatic usage
+- **[Contributing](./docs/contributing.md)** - Development and contribution guide
+- **[FAQ](./docs/faq.md)** - Frequently asked questions
+
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions! Please see our [Contributing Guide](./docs/contributing.md) for detailed information on:
 
-### Development Setup
+- Setting up the development environment
+- Code style guidelines
+- Testing procedures
+- Pull request process
+
+### Quick Development Setup
 ```bash
 git clone https://github.com/bhaveshsinghal95182/kickstart-express.git
 cd kickstart-express
@@ -262,7 +279,7 @@ npm install
 
 ### Testing the CLI
 ```bash
-node index.js
+node index.js --name test-project --language ts --src
 ```
 
 ## 📄 License
