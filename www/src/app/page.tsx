@@ -1,7 +1,13 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { MainNav } from "@/components/main-nav"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { MainNav } from "@/components/main-nav";
 
 export default function Home() {
   return (
@@ -15,8 +21,9 @@ export default function Home() {
               Kickstart Express
             </h1>
             <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-              A powerful CLI tool to quickly scaffold Express.js projects with modern tooling and best practices. 
-              Get up and running with a fully configured Express server in seconds!
+              A powerful CLI tool to quickly scaffold Express.js projects with
+              modern tooling and best practices. Get up and running with a fully
+              configured Express server in seconds!
             </p>
             <div className="space-x-4">
               <Link href="/docs/getting-started">
@@ -140,7 +147,7 @@ npx kickstart-express --name my-api --language ts --docker --src --structured`}<
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-6 md:py-0">
+      <footer className="border-t px-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
@@ -168,5 +175,5 @@ npx kickstart-express --name my-api --language ts --docker --src --structured`}<
         </div>
       </footer>
     </div>
-  )
+  );
 }

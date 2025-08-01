@@ -40,7 +40,7 @@ export function DocsSidebar() {
 
   return (
     <div className="w-full">
-      <div className="pb-4">
+      <div className="p-8">
         <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">
           Documentation
         </h4>

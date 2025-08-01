@@ -1,12 +1,20 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
-import { cn } from "@/lib/utils"
-import React from "react"
+import Link from "next/link";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
+import React from "react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -31,7 +39,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "API Reference",
-    href: "/docs/api-reference", 
+    href: "/docs/api-reference",
     description: "Programmatic usage and API documentation",
   },
   {
@@ -39,12 +47,12 @@ const components: { title: string; href: string; description: string }[] = [
     href: "/docs/contributing",
     description: "Development and contribution guidelines",
   },
-]
+];
 
 export function MainNav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-14 items-center p-8">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block">
@@ -75,7 +83,10 @@ export function MainNav() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="https://github.com/bhaveshsinghal95182/kickstart-express" className={navigationMenuTriggerStyle()}>
+                <Link
+                  href="https://github.com/bhaveshsinghal95182/kickstart-express"
+                  className={navigationMenuTriggerStyle()}
+                >
                   GitHub
                 </Link>
               </NavigationMenuItem>
@@ -90,25 +101,13 @@ export function MainNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Button
-              variant="outline"
-              className="relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-64"
-            >
-              <span className="hidden lg:inline-flex">Search documentation...</span>
-              <span className="inline-flex lg:hidden">Search...</span>
-              <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </Button>
-          </div>
           <nav className="flex items-center">
             <ThemeToggle />
           </nav>
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -133,6 +132,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
