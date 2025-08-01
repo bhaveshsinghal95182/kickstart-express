@@ -194,8 +194,15 @@ vite.config.ts.timestamp-*`;
       console.log("✓ Git repository initialized.");
 
       spinner.start("Installing dependencies with pnpm...");
-      await exec("pnpm install", opts);
-      spinner.succeed("Dependencies installed with pnpm.");
+      try {
+        await exec("pnpm --version", opts);
+        await exec("pnpm install", opts);
+        spinner.succeed("Dependencies installed with pnpm.");
+      } catch {
+        spinner.start("pnpm not found, falling back to npm...");
+        await exec("npm install", opts);
+        spinner.succeed("Dependencies installed with npm.");
+      }
     } catch (error) {
       if (spinner.isSpinning) {
         spinner.fail("Failed to install dependencies.");
