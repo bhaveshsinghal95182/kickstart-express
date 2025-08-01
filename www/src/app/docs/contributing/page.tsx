@@ -116,13 +116,16 @@ pnpm dev`}</code>
               <pre>
                 <code>{`kickstart-express/
 ├── core/                    # Core library functions
-│   ├── generator.js         # Main project generator
-│   ├── templates.js         # Template management
-│   └── utils.js             # Utility functions
+│   └── scaffolder.js        # Main project scaffolder
 ├── templates/               # Project templates
 │   └── base/
 │       ├── js/              # JavaScript templates
 │       └── ts/              # TypeScript templates
+│   └── modules/
+│       ├── docker/          # Docker templates
+│       ├── no-src/          # TypeScript templates
+│       ├── src/             # TypeScript templates
+│       └── src-structured/  # TypeScript templates
 ├── docs/                    # Documentation (markdown)
 ├── www/                     # Documentation website (Next.js)
 ├── index.js                 # CLI entry point
@@ -466,26 +469,6 @@ Include screenshots for UI changes.
           </p>
 
           <div className="space-y-4">
-            <div className="border rounded-lg p-4">
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                Template Structure
-              </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`templates/
-└── base/
-    ├── js/
-    │   ├── simple/          # Simple JavaScript template
-    │   ├── src/             # Src folder template
-    │   └── structured/      # Structured template
-    └── ts/
-        ├── simple/          # Simple TypeScript template
-        ├── src/             # Src folder template
-        └── structured/      # Structured template`}</code>
-                </pre>
-              </div>
-            </div>
-
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 Template Requirements

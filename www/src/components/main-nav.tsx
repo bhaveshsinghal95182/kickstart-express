@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/navigation-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -50,14 +51,19 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export function MainNav() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center p-8">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
-              Kickstart Express
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Kickstart Express Logo"
+              width={32}
+              height={32}
+            />
           </Link>
           <NavigationMenu>
             <NavigationMenuList>
@@ -93,11 +99,21 @@ export function MainNav() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
+        <div className="flex md:hidden">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <span className="font-bold">Kickstart Express</span>
+          </Link>
+        </div>
         <Button
           variant="ghost"
           className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          <Menu className="h-5 w-5" />
+          {mobileMenuOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
           <span className="sr-only">Toggle Menu</span>
         </Button>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -106,6 +122,51 @@ export function MainNav() {
           </nav>
         </div>
       </div>
+      
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t bg-background">
+          <div className="container py-4">
+            <nav className="flex flex-col space-y-4">
+              <div className="space-y-2">
+                <h3 className="font-medium text-sm text-muted-foreground px-3">
+                  Documentation
+                </h3>
+                {components.map((component) => (
+                  <Link
+                    key={component.title}
+                    href={component.href}
+                    className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="font-medium">{component.title}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {component.description}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              
+              <div className="border-t pt-4 space-y-2">
+                <Link
+                  href="/docs/faq"
+                  className="block px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  FAQ
+                </Link>
+                <Link
+                  href="https://github.com/bhaveshsinghal95182/kickstart-express"
+                  className="block px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  GitHub
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

@@ -356,20 +356,6 @@ pnpm dev      # or npm run dev`}</code></pre>
               </p>
             </div>
 
-            <div className="border rounded-lg p-6">
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                How do I enable debug mode?
-              </h3>
-              <p className="leading-7 text-muted-foreground mt-2">
-                Set the debug environment variable to see detailed output:
-              </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`KICKSTART_EXPRESS_DEBUG=1 kickstart-express --name debug-test
-
-# Or on Windows
-set KICKSTART_EXPRESS_DEBUG=1 && kickstart-express --name debug-test`}</code></pre>
-              </div>
-            </div>
 
             <div className="border rounded-lg p-6">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
@@ -524,7 +510,7 @@ await generateProject({
             <li>Start a <a href="https://github.com/bhaveshsinghal95182/kickstart-express/discussions" className="text-primary underline">discussion</a> for general questions</li>
           </ul>
           <p className="text-sm text-muted-foreground mt-4">
-            We're here to help you build amazing Express.js applications! 🚀
+            We're here to help you build amazing Express.js applications!
           </p>
         </section>
       </div>
