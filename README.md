@@ -7,7 +7,7 @@ A powerful CLI tool to quickly scaffold Express.js projects with modern tooling 
 
 ## 🚀 Features
 
-- **Interactive CLI** - Simple prompts to customize your project
+- **Interactive & Non-Interactive CLI** - Use prompts or pass arguments for instant scaffolding
 - **TypeScript & JavaScript Support** - Choose your preferred language
 - **Flexible Project Structure** - From simple to enterprise-ready architectures
 - **Docker Ready** - Optional Docker configuration included
@@ -28,6 +28,7 @@ npx kickstart-express
 
 ## 🛠️ Usage
 
+### Interactive Mode (Default)
 Simply run the command and follow the interactive prompts:
 
 ```bash
@@ -40,6 +41,44 @@ The CLI will ask you:
 3. **Include Dockerfile** - Optional Docker configuration
 4. **Source folder structure** - Simple or organized structure
 5. **Structured architecture** - Controllers, services, and routes separation
+
+### Non-Interactive Mode (CLI Arguments)
+You can also pass arguments to skip prompts and scaffold projects instantly:
+
+```bash
+kickstart-express --name my-api --language ts --docker --src --structured
+```
+
+#### Available CLI Options:
+- `-n, --name <project-name>` - Specify the project name
+- `-l, --language <ts|js>` - Choose language (default: ts)
+- `-d, --docker` - Include Dockerfile and docker-compose.yml
+- `-s, --src` - Create src folder structure
+- `--structured` - Use structured architecture (controllers, services, routes)
+- `-h, --help` - Display help information
+- `-V, --version` - Display version number
+
+#### Examples:
+
+**TypeScript project with all features:**
+```bash
+kickstart-express -n my-awesome-api -l ts -d -s --structured
+```
+
+**Simple JavaScript project:**
+```bash
+kickstart-express --name simple-app --language js
+```
+
+**Partial arguments (will prompt for missing options):**
+```bash
+kickstart-express --name my-app --docker
+```
+
+**Quick TypeScript project with src folder:**
+```bash
+kickstart-express -n quick-api -s
+```
 
 ## 📁 Project Templates
 
@@ -83,13 +122,14 @@ my-app/
 └── ...
 ```
 
-## 🏃‍♂️ Quick Start Example
+## 🏃‍♂️ Quick Start Examples
 
+### Interactive Mode
 ```bash
 # Install the CLI
 npm install -g kickstart-express
 
-# Create a new project
+# Create a new project interactively
 kickstart-express
 
 # Follow the prompts:
@@ -98,6 +138,24 @@ kickstart-express
 # ✓ Include Dockerfile: Yes
 # ✓ Source folder: Yes
 # ✓ Structured architecture: Yes
+
+# Navigate to your project
+cd my-awesome-api
+
+# Install dependencies (if not already done)
+pnpm install
+
+# Start development server
+pnpm dev
+```
+
+### Non-Interactive Mode
+```bash
+# Install the CLI
+npm install -g kickstart-express
+
+# Create a new project with CLI arguments
+kickstart-express --name my-awesome-api --language ts --docker --src --structured
 
 # Navigate to your project
 cd my-awesome-api
@@ -191,11 +249,28 @@ Contain business logic, data processing, and external API calls.
 ### Models
 Define data structures, interfaces, and type definitions.
 
+## 📚 Documentation
+
+For comprehensive documentation, visit the [docs](./docs/) folder:
+
+- **[Getting Started](./docs/getting-started.md)** - Installation and first steps
+- **[CLI Reference](./docs/cli-reference.md)** - Complete command-line options
+- **[Usage Examples](./docs/examples.md)** - Real-world examples and use cases
+- **[Project Templates](./docs/templates.md)** - Understanding generated structures
+- **[API Reference](./docs/api-reference.md)** - Programmatic usage
+- **[Contributing](./docs/contributing.md)** - Development and contribution guide
+- **[FAQ](./docs/faq.md)** - Frequently asked questions
+
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions! Please see our [Contributing Guide](./docs/contributing.md) for detailed information on:
 
-### Development Setup
+- Setting up the development environment
+- Code style guidelines
+- Testing procedures
+- Pull request process
+
+### Quick Development Setup
 ```bash
 git clone https://github.com/bhaveshsinghal95182/kickstart-express.git
 cd kickstart-express
@@ -204,7 +279,7 @@ npm install
 
 ### Testing the CLI
 ```bash
-node index.js
+node index.js --name test-project --language ts --src
 ```
 
 ## 📄 License
