@@ -9,14 +9,15 @@ import { fileURLToPath } from "url";
 const exec = promisify(execCallback);
 
 export class Scaffolder {
-  constructor() {
-    this.projectName = "";
+  constructor(cliOptions = {}) {
+    this.projectName = cliOptions.projectName || "";
     this.options = {
-      src: false,
-      structuredSrc: false,
-      docker: false,
-      language: "ts",
+      src: cliOptions.src !== undefined ? cliOptions.src : null,
+      structuredSrc: cliOptions.structuredSrc !== undefined ? cliOptions.structuredSrc : null,
+      docker: cliOptions.docker !== undefined ? cliOptions.docker : null,
+      language: cliOptions.language || "ts",
     };
+    this.cliOptions = cliOptions;
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     this.templatePath = path.resolve(__dirname, "../templates");
   }
@@ -198,38 +199,61 @@ vite.config.ts.timestamp-*`;
   }
 
   async promptUser() {
-    const answers = await inquirer.prompt([
-      {
+    const prompts = [];
+
+    // Only prompt for project name if not provided via CLI
+    if (!this.projectName) {
+      prompts.push({
         name: "projectName",
         message: "Project name?",
         default: "my-express-app",
-      },
-      {
+      });
+    }
+
+    // Only prompt for language if not provided via CLI
+    if (!this.cliOptions.language) {
+      prompts.push({
         name: "language",
         type: "list",
         message: "Which language do you want to use?",
         choices: ["ts", "js"],
         default: "ts",
-      },
-      { name: "docker", type: "confirm", message: "Include Dockerfile?" },
-    ]);
+      });
+    }
 
-    this.projectName = answers.projectName;
-    this.options.docker = answers.docker;
-    this.options.language = answers.language;
+    // Only prompt for docker if not provided via CLI
+    if (this.options.docker === null) {
+      prompts.push({
+        name: "docker", 
+        type: "confirm", 
+        message: "Include Dockerfile?"
+      });
+    }
 
-    // This logic can also be simplified to always ask
-    const { src } = await inquirer.prompt([
-      {
-        name: "src",
-        type: "confirm",
-        message: "Do you want a src folder?",
-        default: true,
-      },
-    ]);
-    this.options.src = src;
+    // Ask all questions at once if any are needed
+    if (prompts.length > 0) {
+      const answers = await inquirer.prompt(prompts);
+      
+      if (answers.projectName) this.projectName = answers.projectName;
+      if (answers.language) this.options.language = answers.language;
+      if (answers.docker !== undefined) this.options.docker = answers.docker;
+    }
 
-    if (this.options.src) {
+    // Only prompt for src folder if not provided via CLI
+    if (this.options.src === null) {
+      const { src } = await inquirer.prompt([
+        {
+          name: "src",
+          type: "confirm",
+          message: "Do you want a src folder?",
+          default: true,
+        },
+      ]);
+      this.options.src = src;
+    }
+
+    // Only prompt for structured src if src folder is enabled and structured option not provided via CLI
+    if (this.options.src && this.options.structuredSrc === null) {
       const { structured } = await inquirer.prompt([
         {
           name: "structured",
@@ -238,6 +262,11 @@ vite.config.ts.timestamp-*`;
         },
       ]);
       this.options.structuredSrc = structured;
+    }
+
+    // If src folder is false, ensure structuredSrc is also false
+    if (!this.options.src) {
+      this.options.structuredSrc = false;
     }
   }
 
@@ -329,13 +358,19 @@ vite.config.ts.timestamp-*`;
       // No src folder - update TypeScript tsconfig.json if needed
       if (this.options.language === "ts") {
         const tsconfigPath = path.join(dest, "tsconfig.json");
-        const tsconfig = await fs.readJson(tsconfigPath);
         
-        // Update tsconfig for root-level TypeScript files
-        tsconfig.compilerOptions.rootDir = "./";
-        tsconfig.include = ["*.ts"];
-        
-        await fs.writeJson(tsconfigPath, tsconfig, { spaces: 2 });
+        try {
+          // Read the tsconfig file as text and try to parse it
+          const tsconfigContent = await fs.readFile(tsconfigPath, 'utf8');
+          // Simple text replacement for the specific values we need to change
+          const updatedContent = tsconfigContent
+            .replace('"rootDir": "./src"', '"rootDir": "./"')
+            .replace('"include": ["src/**/*.ts"]', '"include": ["*.ts"]');
+          
+          await fs.writeFile(tsconfigPath, updatedContent);
+        } catch (error) {
+          console.warn("Could not update tsconfig.json:", error.message);
+        }
       }
     }
     
