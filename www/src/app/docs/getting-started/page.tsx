@@ -5,7 +5,8 @@ import { CodeBlock } from "@/components/ui/code-block";
 
 export default function GettingStartedPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      <div className="absolute -top-8 left-1/3 h-48 w-80 -z-10 rounded-full bg-blue-500/15 blur-3xl" />
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">
           Getting Started
@@ -18,7 +19,10 @@ export default function GettingStartedPage() {
 
       <Separator />
 
-      <div className="space-y-8">
+      <div className="space-y-8 relative">
+        <div className="absolute top-20 right-16 h-40 w-40 -z-10 rounded-full bg-emerald-500/12 blur-2xl" />
+        <div className="absolute top-96 left-12 h-32 w-32 -z-10 rounded-full bg-pink-500/12 blur-2xl" />
+        <div className="absolute bottom-48 right-8 h-36 w-36 -z-10 rounded-full bg-cyan-500/12 blur-2xl" />
         <section>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
             Installation

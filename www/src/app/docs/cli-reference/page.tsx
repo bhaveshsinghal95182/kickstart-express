@@ -5,7 +5,8 @@ import { CodeBlock } from "@/components/ui/code-block"
 
 export default function CliReferencePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      <div className="absolute -top-8 right-1/4 h-52 w-72 -z-10 rounded-full bg-cyan-500/15 blur-3xl" />
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">CLI Reference</h1>
         <p className="text-xl text-muted-foreground">
@@ -15,7 +16,10 @@ export default function CliReferencePage() {
 
       <Separator />
 
-      <div className="space-y-8">
+      <div className="space-y-8 relative">
+        <div className="absolute top-32 left-8 h-44 w-44 -z-10 rounded-full bg-purple-500/12 blur-2xl" />
+        <div className="absolute top-80 right-12 h-36 w-36 -z-10 rounded-full bg-orange-500/12 blur-2xl" />
+        <div className="absolute bottom-40 left-1/3 h-40 w-40 -z-10 rounded-full bg-green-500/12 blur-2xl" />
         <section>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
             Basic Usage
