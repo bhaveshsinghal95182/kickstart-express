@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { CodeBlock } from "@/components/ui/code-block";
 import { MainNav } from "@/components/main-nav";
 
 export default function Home() {
@@ -130,20 +131,16 @@ export default function Home() {
             </p>
           </div>
           <div className="mx-auto max-w-[58rem] space-y-4">
-            <Card>
-              <CardContent className="pt-6">
-                <pre className="text-sm overflow-x-auto">
-                  <code>{`# Install globally
+            <CodeBlock>
+{`# Install globally
 npm install -g kickstart-express
 
 # Create a new project
 kickstart-express
 
 # Or use npx (no installation required)
-npx kickstart-express --name my-api --language ts --docker --src --structured`}</code>
-                </pre>
-              </CardContent>
-            </Card>
+npx kickstart-express --name my-api --language ts --docker --src --structured`}
+            </CodeBlock>
             <div className="flex justify-center">
               <Link href="/docs/getting-started">
                 <Button>View Full Documentation</Button>

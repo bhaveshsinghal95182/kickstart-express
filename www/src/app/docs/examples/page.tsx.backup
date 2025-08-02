@@ -85,7 +85,14 @@ cd my-awesome-api && pnpm dev`}
                 Perfect for building lightweight microservices with TypeScript
                 and Docker.
               </p>
-              <CodeBlock>kickstart-express --name user-service --language ts --docker --src --structured</CodeBlock>
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>
+                    kickstart-express --name user-service --language ts --docker
+                    --src --structured
+                  </code>
+                </pre>
+              </div>
               <p className="text-sm text-muted-foreground">
                 <strong>Generated structure:</strong> TypeScript, Docker-ready,
                 organized codebase with controllers/services separation
@@ -99,7 +106,13 @@ cd my-awesome-api && pnpm dev`}
               <p className="leading-7 text-muted-foreground mb-4">
                 Quick and simple setup for prototyping or learning.
               </p>
-              <CodeBlock>kickstart-express --name prototype-api --language js</CodeBlock>
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>
+                    kickstart-express --name prototype-api --language js
+                  </code>
+                </pre>
+              </div>
               <p className="text-sm text-muted-foreground">
                 <strong>Generated structure:</strong> Simple JavaScript setup,
                 minimal configuration, ready to code
@@ -114,7 +127,14 @@ cd my-awesome-api && pnpm dev`}
                 Full-featured setup for production applications with all best
                 practices.
               </p>
-              <CodeBlock>kickstart-express --name enterprise-api --language ts --docker --src --structured</CodeBlock>
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>
+                    kickstart-express --name enterprise-api --language ts
+                    --docker --src --structured
+                  </code>
+                </pre>
+              </div>
               <p className="text-sm text-muted-foreground">
                 <strong>Generated structure:</strong> TypeScript, Docker,
                 structured architecture, production-ready
@@ -128,7 +148,14 @@ cd my-awesome-api && pnpm dev`}
               <p className="leading-7 text-muted-foreground mb-4">
                 Great for beginners learning Express.js fundamentals.
               </p>
-              <CodeBlock>kickstart-express --name learning-express --language js --src</CodeBlock>
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>
+                    kickstart-express --name learning-express --language js
+                    --src
+                  </code>
+                </pre>
+              </div>
               <p className="text-sm text-muted-foreground">
                 <strong>Generated structure:</strong> JavaScript, organized src
                 folder, simple but clean structure
@@ -147,8 +174,9 @@ cd my-awesome-api && pnpm dev`}
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 TypeScript Development
               </h3>
-              <CodeBlock>
-{`# Create TypeScript project
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>{`# Create TypeScript project
 kickstart-express --name ts-api --language ts --src
 
 # Development workflow
@@ -164,16 +192,18 @@ ts-api/
 ├── package.json
 ├── tsconfig.json
 ├── .env
-└── .gitignore`}
-</CodeBlock>
+└── .gitignore`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 Docker Development
               </h3>
-              <CodeBlock>
-{`# Create Docker-ready project
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>{`# Create Docker-ready project
 kickstart-express --name docker-api --docker --src
 
 # Docker workflow
@@ -187,16 +217,18 @@ docker-api/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
-└── src/`}
-</CodeBlock>
+└── src/`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 Structured Architecture
               </h3>
-              <CodeBlock>
-{`# Create structured project
+              <div className="rounded-md bg-muted p-4 mb-4">
+                <pre>
+                  <code>{`# Create structured project
 kickstart-express --name structured-api --structured
 
 # Generated API example
@@ -216,8 +248,9 @@ structured-api/
 │   │   └── calculator.service.ts
 │   ├── models/
 │   │   └── calculation.model.ts
-│   └── index.ts`}
-</CodeBlock>
+│   └── index.ts`}</code>
+                </pre>
+              </div>
             </div>
           </div>
         </section>
@@ -236,14 +269,16 @@ structured-api/
                 Share these commands with new team members for consistent
                 project setup.
               </p>
-              <CodeBlock>
-{`# Team standard setup
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`# Team standard setup
 npm install -g kickstart-express
 kickstart-express --name team-project --language ts --docker --structured
 
 # Or using npx (no global installation)
-npx kickstart-express --name team-project --language ts --docker --structured`}
-</CodeBlock>
+npx kickstart-express --name team-project --language ts --docker --structured`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -253,8 +288,9 @@ npx kickstart-express --name team-project --language ts --docker --structured`}
               <p className="leading-7 text-muted-foreground mb-4">
                 Use in automated scripts for consistent project generation.
               </p>
-              <CodeBlock>
-{`#!/bin/bash
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`#!/bin/bash
 # setup-new-service.sh
 
 SERVICE_NAME=$1
@@ -271,8 +307,9 @@ cd "$SERVICE_NAME"
 pnpm install
 pnpm build
 
-echo "Service $SERVICE_NAME created successfully!"`}
-</CodeBlock>
+echo "Service $SERVICE_NAME created successfully!"`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -282,15 +319,17 @@ echo "Service $SERVICE_NAME created successfully!"`}
               <p className="leading-7 text-muted-foreground mb-4">
                 Perfect for coding workshops or training sessions.
               </p>
-              <CodeBlock>
-{`# For participants
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`# For participants
 npx kickstart-express --name workshop-api --language js --src
 
 # Quick verification
 cd workshop-api
 pnpm dev
-# Visit http://localhost:3000 to confirm it's working`}
-</CodeBlock>
+# Visit http://localhost:3000 to confirm it's working`}</code>
+                </pre>
+              </div>
             </div>
           </div>
         </section>
@@ -305,8 +344,9 @@ pnpm dev
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 With Package Managers
               </h3>
-              <CodeBlock>
-{`# Using npm
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`# Using npm
 npm install -g kickstart-express
 kickstart-express --name npm-project
 
@@ -319,8 +359,9 @@ pnpm add -g kickstart-express
 kickstart-express --name pnpm-project
 
 # Using npx (recommended)
-npx kickstart-express --name no-install-project`}
-</CodeBlock>
+npx kickstart-express --name no-install-project`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -330,8 +371,9 @@ npx kickstart-express --name no-install-project`}
               <p className="leading-7 text-muted-foreground mb-4">
                 Add to package.json for team workflows.
               </p>
-              <CodeBlock>
-{`{
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`{
   "scripts": {
     "create:service": "npx kickstart-express --language ts --docker --structured",
     "create:simple": "npx kickstart-express --language js",
@@ -341,8 +383,9 @@ npx kickstart-express --name no-install-project`}
 
 # Usage
 npm run create:service -- --name user-service
-npm run create:simple -- --name quick-test`}
-</CodeBlock>
+npm run create:simple -- --name quick-test`}</code>
+                </pre>
+              </div>
             </div>
           </div>
         </section>
@@ -357,16 +400,18 @@ npm run create:simple -- --name quick-test`}
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 Debug Mode
               </h3>
-              <CodeBlock>
-{`# Enable debug output
+              <div className="rounded-md bg-muted p-4">
+                <pre>
+                  <code>{`# Enable debug output
 KICKSTART_EXPRESS_DEBUG=1 kickstart-express --name debug-test
 
 # Check if project exists
 ls -la debug-test/
 
 # Verify generation
-cd debug-test && pnpm dev`}
-</CodeBlock>
+cd debug-test && pnpm dev`}</code>
+                </pre>
+              </div>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -376,15 +421,30 @@ cd debug-test && pnpm dev`}
               <div className="space-y-4">
                 <div>
                   <h4 className="font-semibold">Directory already exists:</h4>
-                  <CodeBlock showCard={false} className="mt-1">rm -rf existing-project && kickstart-express --name existing-project</CodeBlock>
+                  <div className="rounded-md bg-muted p-2 mt-1">
+                    <pre>
+                      <code>
+                        rm -rf existing-project && kickstart-express --name
+                        existing-project
+                      </code>
+                    </pre>
+                  </div>
                 </div>
                 <div>
                   <h4 className="font-semibold">Permission issues:</h4>
-                  <CodeBlock showCard={false} className="mt-1">sudo npm install -g kickstart-express</CodeBlock>
+                  <div className="rounded-md bg-muted p-2 mt-1">
+                    <pre>
+                      <code>sudo npm install -g kickstart-express</code>
+                    </pre>
+                  </div>
                 </div>
                 <div>
                   <h4 className="font-semibold">Node version compatibility:</h4>
-                  <CodeBlock showCard={false} className="mt-1">{'node --version # Should be >= 18.0.0'}</CodeBlock>
+                  <div className="rounded-md bg-muted p-2 mt-1">
+                    <pre>
+                      <code>node --version # Should be {">="} 18.0.0</code>
+                    </pre>
+                  </div>
                 </div>
               </div>
             </div>
