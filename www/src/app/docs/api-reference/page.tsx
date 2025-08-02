@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/ui/code-block";
+
 export default function ApiReferencePage() {
   return (
     <div className="space-y-6">
@@ -19,15 +21,13 @@ export default function ApiReferencePage() {
           
           <div className="border rounded-lg p-4">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Installation</h3>
-            <div className="rounded-md bg-muted p-4 mt-2">
-              <pre><code>npm install kickstart-express</code></pre>
-            </div>
+            <CodeBlock>npm install kickstart-express</CodeBlock>
           </div>
 
           <div className="border rounded-lg p-4 mt-4">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Basic Usage</h3>
-            <div className="rounded-md bg-muted p-4 mt-2">
-              <pre><code>{`const { generateProject } = require('kickstart-express');
+            <CodeBlock>
+{`const { generateProject } = require('kickstart-express');
 
 // Generate a project programmatically
 await generateProject({
@@ -37,8 +37,8 @@ await generateProject({
   src: true,
   structured: true,
   outputDir: './projects'
-});`}</code></pre>
-            </div>
+});`}
+</CodeBlock>
           </div>
         </section>
 
@@ -52,8 +52,8 @@ await generateProject({
           
           <div className="border rounded-lg p-4">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">ProjectConfig Interface</h3>
-            <div className="rounded-md bg-muted p-4 mt-2">
-              <pre><code>{`interface ProjectConfig {
+            <CodeBlock>
+{`interface ProjectConfig {
   name: string;                    // Project name (required)
   language: 'ts' | 'js';          // Programming language
   docker?: boolean;               // Include Docker files
@@ -62,8 +62,8 @@ await generateProject({
   outputDir?: string;             // Output directory (default: current)
   packageManager?: 'npm' | 'pnpm' | 'yarn'; // Package manager
   installDependencies?: boolean;  // Auto-install dependencies
-}`}</code></pre>
-            </div>
+}`}
+</CodeBlock>
           </div>
 
           <div className="mt-6">
@@ -155,9 +155,9 @@ await generateProject({
                 Main method to generate a new Express.js project.
               </p>
               
-              <div className="rounded-md bg-muted p-4 mb-4">
-                <pre><code>{`async function generateProject(config: ProjectConfig): Promise<GenerationResult>`}</code></pre>
-              </div>
+              <CodeBlock>
+{`async function generateProject(config: ProjectConfig): Promise<GenerationResult>`}
+</CodeBlock>
 
               <h4 className="font-semibold mt-4 mb-2">Parameters:</h4>
               <ul className="ml-6 list-disc [&>li]:mt-1 text-sm">
@@ -167,30 +167,17 @@ await generateProject({
               <h4 className="font-semibold mt-4 mb-2">Returns:</h4>
               <p className="text-sm">Promise&lt;GenerationResult&gt;</p>
               
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre><code>{`interface GenerationResult {
+              <CodeBlock>
+{`interface GenerationResult {
   success: boolean;
   projectPath: string;
   message: string;
   error?: string;
-}`}</code></pre>
-              </div>
+}`}
+</CodeBlock>
 
               <h4 className="font-semibold mt-4 mb-2">Example:</h4>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`const result = await generateProject({
-  name: 'my-awesome-api',
-  language: 'ts',
-  docker: true,
-  structured: true
-});
-
-if (result.success) {
-  console.log(\`Project created at: \${result.projectPath}\`);
-} else {
-  console.error(\`Error: \${result.error}\`);
-}`}</code></pre>
-              </div>
+              <CodeBlock>{`const result = await generateProject({ name: 'my-awesome-api', language: 'ts', docker: true, structured: true }); if (result.success) { console.log(\`Project created at: \${result.projectPath}\`); } else { console.error(\`Error: \${result.error}\`); }`}</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -199,30 +186,30 @@ if (result.success) {
                 Validate a project configuration before generation.
               </p>
               
-              <div className="rounded-md bg-muted p-4 mb-4">
-                <pre><code>{`function validateConfig(config: Partial<ProjectConfig>): ValidationResult`}</code></pre>
-              </div>
+              <CodeBlock>
+{`function validateConfig(config: Partial<ProjectConfig>): ValidationResult`}
+</CodeBlock>
 
               <h4 className="font-semibold mt-4 mb-2">Returns:</h4>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`interface ValidationResult {
+              <CodeBlock>
+{`interface ValidationResult {
   valid: boolean;
   errors: string[];
   warnings: string[];
-}`}</code></pre>
-              </div>
+}`}
+</CodeBlock>
 
               <h4 className="font-semibold mt-4 mb-2">Example:</h4>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`const validation = validateConfig({
+              <CodeBlock>
+{`const validation = validateConfig({
   name: 'my-api',
   language: 'ts'
 });
 
 if (!validation.valid) {
   console.error('Configuration errors:', validation.errors);
-}`}</code></pre>
-              </div>
+}`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -231,19 +218,19 @@ if (!validation.valid) {
                 Get information about available templates and their features.
               </p>
               
-              <div className="rounded-md bg-muted p-4 mb-4">
-                <pre><code>{`function getTemplateInfo(): TemplateInfo[]`}</code></pre>
-              </div>
+              <CodeBlock>
+{`function getTemplateInfo(): TemplateInfo[]`}
+</CodeBlock>
 
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`interface TemplateInfo {
+              <CodeBlock>
+{`interface TemplateInfo {
   name: string;
   description: string;
   features: string[];
   language: 'ts' | 'js' | 'both';
   complexity: 'simple' | 'medium' | 'advanced';
-}`}</code></pre>
-              </div>
+}`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -260,24 +247,7 @@ if (!validation.valid) {
                 Integrate with build tools like Gulp, Webpack, or custom scripts.
               </p>
               
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`// gulpfile.js
-const { generateProject } = require('kickstart-express');
-
-gulp.task('create-service', async () => {
-  const serviceName = process.env.SERVICE_NAME || 'new-service';
-  
-  await generateProject({
-    name: serviceName,
-    language: 'ts',
-    docker: true,
-    structured: true,
-    outputDir: './services'
-  });
-  
-  console.log(\`Service \${serviceName} created!\`);
-});`}</code></pre>
-              </div>
+              <CodeBlock>{`// gulpfile.js const { generateProject } = require('kickstart-express'); gulp.task('create-service', async () => { const serviceName = process.env.SERVICE_NAME || 'new-service'; await generateProject({ name: serviceName, language: 'ts', docker: true, structured: true, outputDir: './services' }); console.log(\`Service \${serviceName} created!\`); });`}</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -286,37 +256,7 @@ gulp.task('create-service', async () => {
                 Use in continuous integration pipelines for automated project creation.
               </p>
               
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`// create-service.js
-const { generateProject } = require('kickstart-express');
-
-async function createService() {
-  const config = {
-    name: process.argv[2],
-    language: 'ts',
-    docker: true,
-    structured: true,
-    outputDir: process.env.SERVICES_DIR || './services'
-  };
-
-  try {
-    const result = await generateProject(config);
-    
-    if (result.success) {
-      console.log(\`✅ Service created: \${result.projectPath}\`);
-      process.exit(0);
-    } else {
-      console.error(\`❌ Failed: \${result.error}\`);
-      process.exit(1);
-    }
-  } catch (error) {
-    console.error('Unexpected error:', error);
-    process.exit(1);
-  }
-}
-
-createService();`}</code></pre>
-              </div>
+              <CodeBlock>{`// create-service.js const { generateProject } = require('kickstart-express'); async function createService() { const config = { name: process.argv[2], language: 'ts', docker: true, structured: true, outputDir: process.env.SERVICES_DIR || './services' }; try { const result = await generateProject(config); if (result.success) { console.log(\`✅ Service created: \${result.projectPath}\`); process.exit(0); } else { console.error(\`❌ Failed: \${result.error}\`); process.exit(1); } } catch (error) { console.error('Unexpected error:', error); process.exit(1); } } createService();`}</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -325,8 +265,8 @@ createService();`}</code></pre>
                 Build your own CLI tool on top of Kickstart Express.
               </p>
               
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`#!/usr/bin/env node
+              <CodeBlock>
+{`#!/usr/bin/env node
 const { generateProject, validateConfig } = require('kickstart-express');
 const { program } = require('commander');
 
@@ -354,8 +294,8 @@ program
     console.log(result.message);
   });
 
-program.parse();`}</code></pre>
-              </div>
+program.parse();`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -364,8 +304,8 @@ program.parse();`}</code></pre>
                 Create an endpoint in your existing Express app to generate new projects.
               </p>
               
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`const express = require('express');
+              <CodeBlock>
+{`const express = require('express');
 const { generateProject } = require('kickstart-express');
 
 const app = express();
@@ -403,8 +343,8 @@ app.post('/api/projects', async (req, res) => {
       error: 'Internal server error'
     });
   }
-});`}</code></pre>
-              </div>
+});`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -422,33 +362,25 @@ app.post('/api/projects', async (req, res) => {
                 <div>
                   <h4 className="font-semibold">PROJECT_EXISTS</h4>
                   <p className="text-sm text-muted-foreground">Project directory already exists</p>
-                  <div className="rounded-md bg-muted p-2 mt-1">
-                    <pre><code className="text-xs">Error: Directory 'my-api' already exists</code></pre>
-                  </div>
+                  <CodeBlock showCard={false} className="mt-1">Error: Directory 'my-api' already exists</CodeBlock>
                 </div>
 
                 <div>
                   <h4 className="font-semibold">INVALID_NAME</h4>
                   <p className="text-sm text-muted-foreground">Invalid project name format</p>
-                  <div className="rounded-md bg-muted p-2 mt-1">
-                    <pre><code className="text-xs">Error: Project name must be a valid npm package name</code></pre>
-                  </div>
+                  <CodeBlock showCard={false} className="mt-1">Error: Project name must be a valid npm package name</CodeBlock>
                 </div>
 
                 <div>
                   <h4 className="font-semibold">PERMISSION_DENIED</h4>
                   <p className="text-sm text-muted-foreground">Insufficient permissions to create project</p>
-                  <div className="rounded-md bg-muted p-2 mt-1">
-                    <pre><code className="text-xs">Error: Permission denied writing to directory</code></pre>
-                  </div>
+                  <CodeBlock showCard={false} className="mt-1">Error: Permission denied writing to directory</CodeBlock>
                 </div>
 
                 <div>
                   <h4 className="font-semibold">DEPENDENCY_INSTALL_FAILED</h4>
                   <p className="text-sm text-muted-foreground">Failed to install project dependencies</p>
-                  <div className="rounded-md bg-muted p-2 mt-1">
-                    <pre><code className="text-xs">Error: Failed to install dependencies with pnpm</code></pre>
-                  </div>
+                  <CodeBlock showCard={false} className="mt-1">Error: Failed to install dependencies with pnpm</CodeBlock>
                 </div>
               </div>
             </div>
@@ -456,41 +388,7 @@ app.post('/api/projects', async (req, res) => {
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Error Handling Example</h3>
               
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`async function createProjectSafely(config) {
-  try {
-    // Validate configuration first
-    const validation = validateConfig(config);
-    if (!validation.valid) {
-      throw new Error(\`Invalid config: \${validation.errors.join(', ')}\`);
-    }
-
-    // Check if project already exists
-    const projectPath = path.join(config.outputDir || '.', config.name);
-    if (fs.existsSync(projectPath)) {
-      throw new Error(\`Project '\${config.name}' already exists\`);
-    }
-
-    // Generate project
-    const result = await generateProject(config);
-    
-    if (!result.success) {
-      throw new Error(result.error);
-    }
-
-    return result;
-  } catch (error) {
-    console.error('Failed to create project:', error.message);
-    
-    // Cleanup on failure
-    if (fs.existsSync(projectPath)) {
-      fs.removeSync(projectPath);
-    }
-    
-    throw error;
-  }
-}`}</code></pre>
-              </div>
+              <CodeBlock>{`async function createProjectSafely(config) { try { // Validate configuration first const validation = validateConfig(config); if (!validation.valid) { throw new Error(\`Invalid config: \${validation.errors.join(', ')}\`); } // Check if project already exists const projectPath = path.join(config.outputDir || '.', config.name); if (fs.existsSync(projectPath)) { throw new Error(\`Project '\${config.name}' already exists\`); } // Generate project const result = await generateProject(config); if (!result.success) { throw new Error(result.error); } return result; } catch (error) { console.error('Failed to create project:', error.message); // Cleanup on failure if (fs.existsSync(projectPath)) { fs.removeSync(projectPath); } throw error; } }`}</CodeBlock>
             </div>
           </div>
         </section>
@@ -505,8 +403,8 @@ app.post('/api/projects', async (req, res) => {
           
           <div className="border rounded-lg p-4">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Type Definitions</h3>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>{`// Install types (included automatically)
+            <CodeBlock>
+{`// Install types (included automatically)
 npm install @types/kickstart-express
 
 // Import with full type support
@@ -526,8 +424,8 @@ const config: ProjectConfig = {
 };
 
 // Type-safe result handling
-const result: GenerationResult = await generateProject(config);`}</code></pre>
-            </div>
+const result: GenerationResult = await generateProject(config);`}
+</CodeBlock>
           </div>
         </section>
       </div>

@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/ui/code-block";
+
 export default function FaqPage() {
   return (
     <div className="space-y-6">
@@ -64,13 +66,13 @@ export default function FaqPage() {
                 <strong>Non-interactive mode</strong> allows you to specify all options via command-line arguments, 
                 ideal for automation, scripts, or when you know exactly what you want.
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# Interactive
+              <CodeBlock>
+{`# Interactive
 kickstart-express
 
 # Non-interactive
-kickstart-express --name my-api --language ts --docker --structured`}</code></pre>
-              </div>
+kickstart-express --name my-api --language ts --docker --structured`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -91,11 +93,11 @@ kickstart-express --name my-api --language ts --docker --structured`}</code></pr
               <div className="mt-3 space-y-2">
                 <div className="rounded-md bg-muted p-3">
                   <p className="text-sm font-medium">Global installation (recommended for frequent use):</p>
-                  <pre><code>npm install -g kickstart-express</code></pre>
+                  <CodeBlock showCard={false}>npm install -g kickstart-express</CodeBlock>
                 </div>
                 <div className="rounded-md bg-muted p-3">
                   <p className="text-sm font-medium">No installation with npx (recommended for occasional use):</p>
-                  <pre><code>npx kickstart-express</code></pre>
+                  <CodeBlock showCard={false}>npx kickstart-express</CodeBlock>
                 </div>
               </div>
             </div>
@@ -107,9 +109,7 @@ kickstart-express --name my-api --language ts --docker --structured`}</code></pr
               <p className="leading-7 text-muted-foreground mt-2">
                 Kickstart Express requires Node.js version 18.0.0 or higher. You can check your version with:
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>node --version</code></pre>
-              </div>
+              <CodeBlock>node --version</CodeBlock>
               <p className="text-sm text-muted-foreground mt-2">
                 If you need to update Node.js, visit <a href="https://nodejs.org" className="text-primary underline">nodejs.org</a> 
                 or use a version manager like nvm.
@@ -124,8 +124,8 @@ kickstart-express --name my-api --language ts --docker --structured`}</code></pr
                 Yes! While the generated projects use pnpm by default (for faster installs), you can use any package manager. 
                 The generated package.json works with npm, yarn, and pnpm.
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# Using npm
+              <CodeBlock>
+{`# Using npm
 cd my-project
 npm install
 npm run dev
@@ -133,8 +133,8 @@ npm run dev
 # Using yarn
 cd my-project  
 yarn install
-yarn dev`}</code></pre>
-              </div>
+yarn dev`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -147,17 +147,19 @@ yarn dev`}</code></pre>
               <div className="mt-3 space-y-2">
                 <div className="rounded-md bg-muted p-3">
                   <p className="text-sm font-medium">Option 1: Use npx (no installation needed):</p>
-                  <pre><code>npx kickstart-express</code></pre>
+                  <CodeBlock showCard={false}>npx kickstart-express</CodeBlock>
                 </div>
                 <div className="rounded-md bg-muted p-3">
                   <p className="text-sm font-medium">Option 2: Configure npm to use a different directory:</p>
-                  <pre><code>{`mkdir ~/.npm-global
+                  <CodeBlock showCard={false}>
+{`mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-export PATH=~/.npm-global/bin:$PATH`}</code></pre>
+export PATH=~/.npm-global/bin:$PATH`}
+                  </CodeBlock>
                 </div>
                 <div className="rounded-md bg-muted p-3">
                   <p className="text-sm font-medium">Option 3: Use a Node version manager (recommended):</p>
-                  <pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</code></pre>
+                  <CodeBlock showCard={false}>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash</CodeBlock>
                 </div>
               </div>
             </div>
@@ -262,14 +264,14 @@ export PATH=~/.npm-global/bin:$PATH`}</code></pre>
                 No, you can generate a project with Docker files without having Docker installed. 
                 However, you'll need Docker installed to actually build and run the containerized application.
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# Generate with Docker files (no Docker needed)
+              <CodeBlock>
+{`# Generate with Docker files (no Docker needed)
 kickstart-express --name my-api --docker
 
 # Build and run (requires Docker)
 cd my-api
-docker-compose up --build`}</code></pre>
-              </div>
+docker-compose up --build`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -302,16 +304,16 @@ docker-compose up --build`}</code></pre>
               <p className="leading-7 text-muted-foreground mt-2">
                 This usually means the package isn't installed globally or your PATH isn't configured correctly. Try:
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# Use npx instead (recommended)
+              <CodeBlock>
+{`# Use npx instead (recommended)
 npx kickstart-express
 
 # Or install globally
 npm install -g kickstart-express
 
 # Check if it's installed
-npm list -g kickstart-express`}</code></pre>
-              </div>
+npm list -g kickstart-express`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -322,14 +324,14 @@ npm list -g kickstart-express`}</code></pre>
                 This happens when you try to create a project with a name that already exists in the current directory. 
                 Choose a different name or remove the existing directory:
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# Use a different name
+              <CodeBlock>
+{`# Use a different name
 kickstart-express --name my-api-v2
 
 # Or remove the existing directory (be careful!)
 rm -rf existing-project
-kickstart-express --name existing-project`}</code></pre>
-              </div>
+kickstart-express --name existing-project`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -339,8 +341,8 @@ kickstart-express --name existing-project`}</code></pre>
               <p className="leading-7 text-muted-foreground mt-2">
                 First, make sure you've installed dependencies and check for error messages:
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`cd your-project
+              <CodeBlock>
+{`cd your-project
 
 # Install dependencies
 pnpm install  # or npm install
@@ -349,8 +351,8 @@ pnpm install  # or npm install
 pnpm build    # or npm run build
 
 # Start development server
-pnpm dev      # or npm run dev`}</code></pre>
-              </div>
+pnpm dev      # or npm run dev`}
+</CodeBlock>
               <p className="text-sm text-muted-foreground mt-3">
                 If you're still having issues, check that port 3000 isn't already in use or set a different port in your .env file.
               </p>
@@ -387,15 +389,15 @@ pnpm dev      # or npm run dev`}</code></pre>
               <p className="leading-7 text-muted-foreground mt-2">
                 Yes! It's perfect for automated project generation. Use non-interactive mode:
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`# In your CI script
+              <CodeBlock>
+{`# In your CI script
 npx kickstart-express --name $SERVICE_NAME --language ts --docker --structured
 
 # Or create a script for your team
 #!/bin/bash
 npx kickstart-express --name "$1" --language ts --docker --structured
-cd "$1" && pnpm install && pnpm build`}</code></pre>
-              </div>
+cd "$1" && pnpm install && pnpm build`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-6">
@@ -436,15 +438,15 @@ cd "$1" && pnpm install && pnpm build`}</code></pre>
                 Yes! While primarily a CLI tool, you can use it programmatically in Node.js applications. 
                 See our <a href="/docs/api-reference" className="text-primary underline">API Reference</a> for details.
               </p>
-              <div className="rounded-md bg-muted p-4 mt-3">
-                <pre><code>{`const { generateProject } = require('kickstart-express');
+              <CodeBlock>
+{`const { generateProject } = require('kickstart-express');
 
 await generateProject({
   name: 'my-api',
   language: 'ts',
   structured: true
-});`}</code></pre>
-              </div>
+});`}
+</CodeBlock>
             </div>
           </div>
         </section>

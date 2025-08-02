@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { CodeBlock } from "@/components/ui/code-block";
 
 export default function GettingStartedPage() {
   return (
@@ -30,13 +31,7 @@ export default function GettingStartedPage() {
               Install Kickstart Express globally to use it from anywhere on your
               system:
             </p>
-            <Card>
-              <CardContent className="pt-4">
-                <pre>
-                  <code>npm install -g kickstart-express</code>
-                </pre>
-              </CardContent>
-            </Card>
+            <CodeBlock>npm install -g kickstart-express</CodeBlock>
 
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Using npx{" "}
@@ -47,13 +42,7 @@ export default function GettingStartedPage() {
               You can also use npx to run Kickstart Express without installing
               it globally:
             </p>
-            <Card>
-              <CardContent className="pt-4">
-                <pre>
-                  <code>npx kickstart-express@latest</code>
-                </pre>
-              </CardContent>
-            </Card>
+            <CodeBlock>npx kickstart-express@latest</CodeBlock>
           </div>
         </section>
 
@@ -96,13 +85,7 @@ export default function GettingStartedPage() {
           <p className="leading-7">
             Simply run the command and follow the interactive prompts:
           </p>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>kickstart-express</code>
-              </pre>
-            </CardContent>
-          </Card>
+          <CodeBlock>kickstart-express</CodeBlock>
           <p className="leading-7">The CLI will guide you through:</p>
           <Card>
             <CardContent className="pt-4">
@@ -137,16 +120,9 @@ export default function GettingStartedPage() {
           <p className="leading-7">
             For faster scaffolding, you can pass arguments directly:
           </p>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>
-                  kickstart-express --name my-awesome-api --language ts --docker
-                  --src --structured
-                </code>
-              </pre>
-            </CardContent>
-          </Card>
+          <CodeBlock>
+{`kickstart-express --name my-awesome-api --language ts --docker --src --structured`}
+          </CodeBlock>
         </section>
 
         <section>
@@ -157,20 +133,16 @@ export default function GettingStartedPage() {
             After creating your project, navigate to the directory and start
             development:
           </p>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>{`# Navigate to your project
+          <CodeBlock>
+{`# Navigate to your project
 cd my-awesome-api
 
 # Install dependencies (if not already done)
 pnpm install
 
 # Start development server
-pnpm dev`}</code>
-              </pre>
-            </CardContent>
-          </Card>
+pnpm dev`}
+          </CodeBlock>
           <p className="leading-7">
             Your Express server will be running at{" "}
             <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
@@ -191,40 +163,24 @@ pnpm dev`}</code>
           <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mt-6">
             TypeScript Projects
           </h3>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>{`pnpm dev      # Start development server with hot reload
+          <CodeBlock>
+{`pnpm dev      # Start development server with hot reload
 pnpm build    # Build for production
-pnpm start    # Start production server`}</code>
-              </pre>
-            </CardContent>
-          </Card>
+pnpm start    # Start production server`}
+          </CodeBlock>
 
           <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
             JavaScript Projects
           </h3>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>{`pnpm dev      # Start development server with nodemon
-pnpm start    # Start production server`}</code>
-              </pre>
-            </CardContent>
-          </Card>
+          <CodeBlock>
+{`pnpm dev      # Start development server with nodemon
+pnpm start    # Start production server`}
+          </CodeBlock>
 
           <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
             Docker Projects
           </h3>
-          <Card>
-            <CardContent className="pt-4">
-              <pre>
-                <code>
-                  docker-compose up --build # Build and run with Docker
-                </code>
-              </pre>
-            </CardContent>
-          </Card>
+          <CodeBlock>docker-compose up --build # Build and run with Docker</CodeBlock>
         </section>
 
         <section>

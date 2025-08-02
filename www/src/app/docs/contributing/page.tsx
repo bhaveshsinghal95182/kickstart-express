@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/ui/code-block";
+
 export default function ContributingPage() {
   return (
     <div className="space-y-6">
@@ -56,48 +58,42 @@ export default function ContributingPage() {
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 1. Fork and Clone
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Fork the repository on GitHub, then clone your fork
+              <CodeBlock>
+{`# Fork the repository on GitHub, then clone your fork
 git clone https://github.com/YOUR_USERNAME/kickstart-express.git
 cd kickstart-express
 
 # Add the original repository as upstream
-git remote add upstream https://github.com/bhaveshsinghal95182/kickstart-express.git`}</code>
-                </pre>
-              </div>
+git remote add upstream https://github.com/bhaveshsinghal95182/kickstart-express.git`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 2. Install Dependencies
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Install project dependencies
+              <CodeBlock>
+{`# Install project dependencies
 pnpm install
 
 # Or if you prefer npm
-npm install`}</code>
-                </pre>
-              </div>
+npm install`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 3. Test Your Setup
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Test the CLI locally
+              <CodeBlock>
+{`# Test the CLI locally
 node index.js --name test-project --language ts --src
 
 # Verify the generated project works
 cd test-project
 pnpm install
-pnpm dev`}</code>
-                </pre>
-              </div>
+pnpm dev`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -112,9 +108,8 @@ pnpm dev`}</code>
           </p>
 
           <div className="border rounded-lg p-4">
-            <div className="rounded-md bg-muted p-4">
-              <pre>
-                <code>{`kickstart-express/
+            <CodeBlock>
+{`kickstart-express/
 ├── core/                    # Core library functions
 │   └── scaffolder.js        # Main project scaffolder
 ├── templates/               # Project templates
@@ -131,9 +126,8 @@ pnpm dev`}</code>
 ├── index.js                 # CLI entry point
 ├── package.json             # Project configuration
 ├── README.md                # Project README
-└── CHANGELOG.md             # Version history`}</code>
-              </pre>
-            </div>
+└── CHANGELOG.md             # Version history`}
+</CodeBlock>
           </div>
 
           <div className="mt-6">
@@ -246,9 +240,8 @@ pnpm dev`}</code>
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 1. Create a Branch
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Update your main branch
+              <CodeBlock>
+{`# Update your main branch
 git checkout main
 git pull upstream main
 
@@ -256,9 +249,8 @@ git pull upstream main
 git checkout -b feature/your-feature-name
 
 # Or for bug fixes
-git checkout -b fix/issue-description`}</code>
-                </pre>
-              </div>
+git checkout -b fix/issue-description`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -280,9 +272,8 @@ git checkout -b fix/issue-description`}</code>
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 3. Test Your Changes
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Run the CLI with your changes
+              <CodeBlock>
+{`# Run the CLI with your changes
 node index.js --name test-feature --language ts --structured
 
 # Test different configurations
@@ -290,23 +281,20 @@ node index.js --name test-js --language js --docker
 node index.js --name test-simple --language js
 
 # Verify generated projects work
-cd test-feature && pnpm install && pnpm dev`}</code>
-                </pre>
-              </div>
+cd test-feature && pnpm install && pnpm dev`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 4. Submit a Pull Request
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Push your branch to your fork
+              <CodeBlock>
+{`# Push your branch to your fork
 git push origin feature/your-feature-name
 
-# Then create a pull request on GitHub`}</code>
-                </pre>
-              </div>
+# Then create a pull request on GitHub`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -332,9 +320,8 @@ git push origin feature/your-feature-name
                 <li>Handle errors appropriately</li>
               </ul>
 
-              <div className="rounded-md bg-muted p-4 mt-4">
-                <pre>
-                  <code>{`// Good
+              <CodeBlock>
+{`// Good
 /**
  * Generates a new Express.js project
  * @param {Object} config - Project configuration
@@ -349,9 +336,8 @@ async function generateProject(config) {
   } catch (error) {
     return { success: false, error: error.message };
   }
-}`}</code>
-                </pre>
-              </div>
+}`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -373,15 +359,13 @@ async function generateProject(config) {
               <p className="text-sm text-muted-foreground mb-2">
                 Use conventional commits format:
               </p>
-              <div className="rounded-md bg-muted p-4">
-                <pre>
-                  <code>{`feat: add Docker support to TypeScript templates
+              <CodeBlock>
+{`feat: add Docker support to TypeScript templates
 fix: resolve path resolution issue on Windows
 docs: update CLI reference with new options
 test: add unit tests for template generator
-chore: update dependencies to latest versions`}</code>
-                </pre>
-              </div>
+chore: update dependencies to latest versions`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -409,9 +393,8 @@ chore: update dependencies to latest versions`}</code>
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 PR Template
               </h3>
-              <div className="rounded-md bg-muted p-4">
-                <pre>
-                  <code>{`## Description
+              <CodeBlock>
+{`## Description
 Brief description of the changes made.
 
 ## Type of Change
@@ -437,9 +420,8 @@ Include screenshots for UI changes.
 - [ ] I have commented my code where necessary
 - [ ] I have made corresponding changes to documentation
 - [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix/feature works`}</code>
-                </pre>
-              </div>
+- [ ] I have added tests that prove my fix/feature works`}
+</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -488,9 +470,8 @@ Include screenshots for UI changes.
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">
                 Testing New Templates
               </h3>
-              <div className="rounded-md bg-muted p-4 mt-2">
-                <pre>
-                  <code>{`# Test your new template
+              <CodeBlock>
+{`# Test your new template
 node index.js --name test-new-template --language ts --your-new-option
 
 # Verify it works
@@ -500,9 +481,8 @@ pnpm dev
 
 # Test build process
 pnpm build
-pnpm start`}</code>
-                </pre>
-              </div>
+pnpm start`}
+</CodeBlock>
             </div>
           </div>
         </section>
