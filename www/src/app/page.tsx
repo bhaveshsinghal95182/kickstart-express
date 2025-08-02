@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -23,48 +23,55 @@ export default function Home() {
   // Hero section animations
   useGSAPOnMount((tl) => {
     tl.fromTo(
-      '.logo-animation',
-      { opacity: 0, scale: 0.5, rotation: -10 },
-      { opacity: 1, scale: 1, rotation: 0, duration: 1, ease: 'back.out(1.7)' }
+      ".logo-animation",
+      { opacity: 0 },
+      { opacity: 1, duration: 1, ease: "back.out(1.7)" }
     )
-    .fromTo(
-      '.title-animation',
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-      '-=0.5'
-    )
-    .fromTo(
-      '.description-animation',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-      '-=0.3'
-    )
-    .fromTo(
-      '.buttons-animation',
-      { opacity: 0, y: 20, scale: 0.9 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out' },
-      '-=0.2'
-    );
+      .fromTo(
+        ".title-animation",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+        "-=0.5"
+      )
+      .fromTo(
+        ".description-animation",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+        "-=0.3"
+      )
+      .fromTo(
+        ".buttons-animation",
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power2.out" },
+        "-=0.2"
+      );
   });
 
   // Scroll-triggered animations
   useLayoutEffect(() => {
     // Features cards stagger animation
-    animateOnScroll('.feature-card', { duration: 0.6, ease: 'power2.out' });
-    
+    animateOnScroll(".feature-card", {
+      duration: 0.6,
+      ease: "power2.out",
+      stagger: 0.1,
+    });
+
     // Quick start section
-    animateOnScroll('.quick-start-content', { duration: 0.8, ease: 'power2.out' });
-    
-    // Footer animation
-    animateOnScroll('footer', { duration: 0.6, ease: 'power2.out' });
+    animateOnScroll(".quick-start-content", {
+      duration: 0.8,
+      ease: "power2.out",
+    });
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div>
       <MainNav />
       <main className="container">
         {/* Hero Section */}
-        <section ref={heroRef} className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+        <section
+          ref={heroRef}
+          className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32"
+        >
           <div className="mx-auto flex max-w-[64rem] flex-col items-center space-y-4 text-center">
             <div className="logo-animation">
               <Image
@@ -84,10 +91,19 @@ export default function Home() {
             </p>
             <div className="buttons-animation space-x-4">
               <Link href="/docs/getting-started">
-                <Button size="lg" className="hover:scale-105 transition-transform">Get Started</Button>
+                <Button
+                  size="lg"
+                  className="hover:scale-105 transition-transform"
+                >
+                  Get Started
+                </Button>
               </Link>
               <Link href="https://github.com/bhaveshsinghal95182/kickstart-express">
-                <Button variant="outline" size="lg" className="hover:scale-105 transition-transform">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="hover:scale-105 transition-transform"
+                >
                   View on GitHub
                 </Button>
               </Link>
@@ -96,7 +112,10 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section ref={featuresRef} className="space-y-6 py-8 md:py-12 lg:py-24 p-3">
+        <section
+          ref={featuresRef}
+          className="space-y-6 py-8 md:py-12 lg:py-24 p-3"
+        >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Features
@@ -170,7 +189,10 @@ export default function Home() {
         </section>
 
         {/* Quick Start Section */}
-        <section ref={quickStartRef} className="space-y-6 p-3 py-8 md:py-12 lg:py-24">
+        <section
+          ref={quickStartRef}
+          className="space-y-6 p-3 py-8 md:py-12 lg:py-24"
+        >
           <div className="quick-start-content mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Quick Start
@@ -181,7 +203,7 @@ export default function Home() {
           </div>
           <div className="quick-start-content mx-auto max-w-[58rem] space-y-4">
             <CodeBlock>
-{`# Install globally
+              {`# Install globally
 npm install -g kickstart-express
 
 # Create a new project
@@ -192,7 +214,9 @@ npx kickstart-express --name my-api --language ts --docker --src --structured`}
             </CodeBlock>
             <div className="flex justify-center">
               <Link href="/docs/getting-started">
-                <Button className="hover:scale-105 transition-transform">View Full Documentation</Button>
+                <Button className="hover:scale-105 transition-transform">
+                  View Full Documentation
+                </Button>
               </Link>
             </div>
           </div>
@@ -222,7 +246,6 @@ npx kickstart-express --name my-api --language ts --docker --src --structured`}
               >
                 GitHub
               </a>
-              .
             </p>
           </div>
         </div>
