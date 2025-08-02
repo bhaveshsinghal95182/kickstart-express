@@ -84,6 +84,11 @@ export function MainNav() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link href="/builder" className={navigationMenuTriggerStyle()}>
+                  Builder
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link href="/docs/faq" className={navigationMenuTriggerStyle()}>
                   FAQ
                 </Link>
@@ -148,6 +153,13 @@ export function MainNav() {
               </div>
               
               <div className="border-t pt-4 space-y-2">
+                <Link
+                  href="/builder"
+                  className="block px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Builder
+                </Link>
                 <Link
                   href="/docs/faq"
                   className="block px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground rounded-md transition-colors"
