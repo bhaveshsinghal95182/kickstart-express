@@ -2,8 +2,49 @@
 
 [![npm version](https://badge.fury.io/js/kickstart-express.svg)](https://www.npmjs.com/package/kickstart-express)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Downloads](https://img.shields.io/npm/dm/kickstart-express.svg)](https://www.npmjs.com/package/kickstart-express)
+[![Node.js Version](https://img.shields.io/node/v/kickstart-express.svg)](https://nodejs.org/)
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-yellow.svg)](https://buymeacoffee.com/descentkatil)
 
 A powerful CLI tool to quickly scaffold Express.js projects with modern tooling and best practices. Get up and running with a fully configured Express server in seconds!
+
+![npm](https://img.shields.io/badge/npm-compatible-brightgreen)
+![TypeScript](https://img.shields.io/badge/TypeScript-supported-blue)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
+
+## ⚡ Quick Demo
+
+```bash
+# Install globally
+npm install -g kickstart-express
+
+# Create a new project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# Navigate and start
+cd my-api && pnpm dev
+```
+
+Your Express server will be running at `http://localhost:3000` with a fully configured TypeScript setup, Docker containers, and organized project structure!
+
+## 📋 Table of Contents
+
+- [⚡ Quick Demo](#-quick-demo)
+- [🚀 Features](#-features)
+- [📦 Installation](#-installation)
+- [🛠️ Usage](#️-usage)
+- [📁 Project Templates](#-project-templates)
+- [🏃‍♂️ Quick Start Examples](#️-quick-start-examples)
+- [📋 Available Scripts](#-available-scripts)
+- [🔧 Requirements](#-requirements)
+- [🌟 What's Included](#-whats-included)
+- [🚀 Generated API Example](#-generated-api-example)
+- [📝 Project Structure Explained](#-project-structure-explained)
+- [📚 Documentation](#-documentation)
+- [🤝 Contributing](#-contributing)
+- [💖 Support](#-support)
+- [📄 License](#-license)
 
 ## 🚀 Features
 
@@ -252,19 +293,19 @@ Define data structures, interfaces, and type definitions.
 
 ## 📚 Documentation
 
-For comprehensive documentation, visit the [docs](./docs/) folder:
+For comprehensive documentation, visit our online docs at **[docs.kickstart.express](https://docs.kickstart.express)**:
 
-- **[Getting Started](./docs/getting-started.md)** - Installation and first steps
-- **[CLI Reference](./docs/cli-reference.md)** - Complete command-line options
-- **[Usage Examples](./docs/examples.md)** - Real-world examples and use cases
-- **[Project Templates](./docs/templates.md)** - Understanding generated structures
-- **[API Reference](./docs/api-reference.md)** - Programmatic usage
-- **[Contributing](./docs/contributing.md)** - Development and contribution guide
-- **[FAQ](./docs/faq.md)** - Frequently asked questions
+- **[Getting Started](https://docs.kickstart.express/docs/getting-started)** - Installation and first steps
+- **[CLI Reference](https://docs.kickstart.express/docs/cli-reference)** - Complete command-line options
+- **[Usage Examples](https://docs.kickstart.express/docs/examples)** - Real-world examples and use cases
+- **[Project Templates](https://docs.kickstart.express/docs/templates)** - Understanding generated structures
+- **[API Reference](https://docs.kickstart.express/docs/api-reference)** - Programmatic usage
+- **[Contributing](https://docs.kickstart.express/docs/contributing)** - Development and contribution guide
+- **[FAQ](https://docs.kickstart.express/docs/faq)** - Frequently asked questions
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](./docs/contributing.md) for detailed information on:
+We welcome contributions! Please see our [Contributing Guide](https://docs.kickstart.express/docs/contributing) for detailed information on:
 
 - Setting up the development environment
 - Code style guidelines
@@ -283,6 +324,15 @@ npm install
 node index.js --name test-project --language ts --src
 ```
 
+## 💖 Support
+
+If you find this tool helpful, please consider:
+
+- ⭐ Giving it a star on GitHub
+- ☕ [Buying me a coffee](https://buymeacoffee.com/descentkatil) to support development
+- 🐛 [Reporting issues](https://github.com/bhaveshsinghal95182/kickstart-express/issues) you encounter
+- 💡 [Suggesting new features](https://github.com/bhaveshsinghal95182/kickstart-express/issues)
+
 ## 📄 License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
@@ -297,4 +347,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 **Happy coding! 🎉**
 
-If you find this tool helpful, please consider giving it a ⭐ on GitHub!
+Made with ❤️ by [bhaveshsinghal95182](https://github.com/bhaveshsinghal95182)
+
+[![GitHub followers](https://img.shields.io/github/followers/bhaveshsinghal95182?style=social)](https://github.com/bhaveshsinghal95182)
+[![GitHub stars](https://img.shields.io/github/stars/bhaveshsinghal95182/kickstart-express?style=social)](https://github.com/bhaveshsinghal95182/kickstart-express)
