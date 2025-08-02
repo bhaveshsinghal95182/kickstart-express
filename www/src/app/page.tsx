@@ -115,9 +115,10 @@ export default function Home() {
         {/* Features Section */}
         <section
           ref={featuresRef}
-          className="space-y-6 py-8 md:py-12 lg:py-24 p-3"
+          className="space-y-6 py-8 md:py-12 lg:py-24 p-3 relative"
         >
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center relative">
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 h-48 w-96 -z-10 rounded-full bg-blue-500/20 blur-3xl" />
             <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Features
             </h2>
@@ -125,7 +126,10 @@ export default function Home() {
               Everything you need to build modern Express.js applications
             </p>
           </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 relative">
+            <div className="absolute top-12 left-8 h-32 w-32 -z-10 rounded-full bg-pink-500/15 blur-2xl" />
+            <div className="absolute top-32 right-16 h-40 w-40 -z-10 rounded-full bg-cyan-500/15 blur-2xl" />
+            <div className="absolute bottom-16 left-1/3 h-36 w-36 -z-10 rounded-full bg-emerald-500/15 blur-2xl" />
             <Card className="feature-card hover:scale-105 transition-transform hover:shadow-lg">
               <CardHeader>
                 <CardTitle>Interactive & Non-Interactive CLI</CardTitle>
@@ -192,9 +196,10 @@ export default function Home() {
         {/* Quick Start Section */}
         <section
           ref={quickStartRef}
-          className="space-y-6 p-3 py-8 md:py-12 lg:py-24"
+          className="space-y-6 p-3 py-8 md:py-12 lg:py-24 relative"
         >
-          <div className="quick-start-content mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+          <div className="quick-start-content mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center relative">
+            <div className="absolute -top-8 right-1/4 h-56 w-80 -z-10 rounded-full bg-emerald-500/20 blur-3xl" />
             <h2 className="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
               Quick Start
             </h2>
@@ -202,7 +207,8 @@ export default function Home() {
               Get started in seconds with our powerful CLI
             </p>
           </div>
-          <div className="quick-start-content mx-auto max-w-[58rem] space-y-4">
+          <div className="quick-start-content mx-auto max-w-[58rem] space-y-4 relative">
+            <div className="absolute top-8 -left-12 h-44 w-44 -z-10 rounded-full bg-orange-500/15 blur-2xl" />
             <CodeBlock>
               {`# Install globally
 npm install -g kickstart-express
@@ -225,7 +231,8 @@ npx kickstart-express --name my-api --language ts --docker --src --structured`}
       </main>
 
       {/* Footer */}
-      <footer className="border-t px-6 md:py-0">
+      <footer className="border-t px-6 md:py-0 relative">
+        <div className="absolute top-0 left-1/4 h-32 w-64 -z-10 rounded-full bg-purple-500/10 blur-2xl" />
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">

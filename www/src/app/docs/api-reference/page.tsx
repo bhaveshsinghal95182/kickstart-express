@@ -2,7 +2,8 @@ import { CodeBlock } from "@/components/ui/code-block";
 
 export default function ApiReferencePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      <div className="absolute -top-8 left-1/5 h-52 w-76 -z-10 rounded-full bg-indigo-500/15 blur-3xl" />
       <div>
         <h1 className="scroll-m-20 text-4xl font-bold tracking-tight">API Reference</h1>
         <p className="text-xl text-muted-foreground">
@@ -10,7 +11,9 @@ export default function ApiReferencePage() {
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-8 relative">
+        <div className="absolute top-32 right-12 h-38 w-38 -z-10 rounded-full bg-violet-500/12 blur-2xl" />
+        <div className="absolute top-64 left-16 h-34 w-34 -z-10 rounded-full bg-lime-500/12 blur-2xl" />
         <section>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
             Node.js API
