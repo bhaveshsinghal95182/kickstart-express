@@ -109,6 +109,16 @@
   --shadow-opacity: var(--shadow-opacity);
   --color-shadow-color: var(--shadow-color);
   --color-destructive-foreground: var(--destructive-foreground);
+
+  --animate-enlarge: enlarge 10s ease-in-out infinite;
+  @keyframes enlarge {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.5);
+    }
+  }
 }
 
 :root {
@@ -371,6 +381,8 @@
     color: var(--code-inline-text);
     border: 1px solid var(--code-inline-border);
   }
+
+  
 }
 
 ::view-transition-old(root),

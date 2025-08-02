@@ -73,13 +73,14 @@ export default function Home() {
           className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32"
         >
           <div className="mx-auto flex max-w-[64rem] flex-col items-center space-y-4 text-center">
-            <div className="logo-animation">
+            <div className="logo-animation relative">
               <Image
                 src="/logo.png"
                 alt="Kickstart Express Logo"
                 width={200}
                 height={200}
               />
+              <div className="absolute -inset-8 h-64 w-64 -z-10 rounded-full bg-purple-500/30 blur-3xl animate-enlarge" />
             </div>
             <h1 className="title-animation font-bold font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
               Kickstart Express
