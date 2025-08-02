@@ -1,9 +1,7 @@
 # Kickstart Express
 
-[![npm version](https://badge.fury.io/js/kickstart-express.svg)](https://www.npmjs.com/package/kickstart-express)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Downloads](https://img.shields.io/npm/dm/kickstart-express.svg)](https://www.npmjs.com/package/kickstart-express)
-[![Node.js Version](https://img.shields.io/node/v/kickstart-express.svg)](https://nodejs.org/)
 
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-☕-yellow.svg)](https://buymeacoffee.com/descentkatil)
 
