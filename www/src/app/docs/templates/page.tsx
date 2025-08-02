@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/ui/code-block";
+
 export default function TemplatesPage() {
   return (
     <div className="space-y-6">
@@ -29,37 +31,33 @@ export default function TemplatesPage() {
           
           <div className="space-y-4">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">JavaScript Simple</h3>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>kickstart-express --name simple-js --language js</code></pre>
-            </div>
+            <CodeBlock>kickstart-express --name simple-js --language js</CodeBlock>
             <div className="border rounded-lg p-4">
               <h4 className="font-semibold mb-2">Generated Structure:</h4>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`simple-js/
+              <CodeBlock>
+{`simple-js/
 ├── index.js              # Main server file
 ├── package.json          # Dependencies and scripts
 ├── .env                  # Environment variables
 ├── .gitignore           # Git ignore rules
-└── README.md            # Project documentation`}</code></pre>
-              </div>
+└── README.md            # Project documentation`}
+</CodeBlock>
             </div>
             
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">TypeScript Simple</h3>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>kickstart-express --name simple-ts --language ts</code></pre>
-            </div>
+            <CodeBlock>kickstart-express --name simple-ts --language ts</CodeBlock>
             <div className="border rounded-lg p-4">
               <h4 className="font-semibold mb-2">Generated Structure:</h4>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`simple-ts/
+              <CodeBlock>
+{`simple-ts/
 ├── src/
 │   └── index.ts         # Main server file
 ├── package.json         # Dependencies and scripts
 ├── tsconfig.json        # TypeScript configuration
 ├── .env                 # Environment variables
 ├── .gitignore          # Git ignore rules
-└── README.md           # Project documentation`}</code></pre>
-              </div>
+└── README.md           # Project documentation`}
+</CodeBlock>
             </div>
           </div>
         </section>
@@ -72,21 +70,19 @@ export default function TemplatesPage() {
             Organized structure with dedicated src folder. Better for medium-sized projects.
           </p>
           
-          <div className="rounded-md bg-muted p-4">
-            <pre><code>kickstart-express --name organized-project --language ts --src</code></pre>
-          </div>
+          <CodeBlock>kickstart-express --name organized-project --language ts --src</CodeBlock>
           <div className="border rounded-lg p-4">
             <h4 className="font-semibold mb-2">Generated Structure:</h4>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>{`organized-project/
+            <CodeBlock>
+{`organized-project/
 ├── src/
 │   └── index.ts         # Main application file
 ├── package.json         # Dependencies and scripts
 ├── tsconfig.json        # TypeScript configuration
 ├── .env                 # Environment variables
 ├── .gitignore          # Git ignore rules
-└── README.md           # Project documentation`}</code></pre>
-            </div>
+└── README.md           # Project documentation`}
+</CodeBlock>
           </div>
 
           <div className="mt-6">
@@ -108,13 +104,11 @@ export default function TemplatesPage() {
             Enterprise-ready structure with separation of concerns. Perfect for larger applications and teams.
           </p>
           
-          <div className="rounded-md bg-muted p-4">
-            <pre><code>kickstart-express --name enterprise-api --language ts --structured</code></pre>
-          </div>
+          <CodeBlock>kickstart-express --name enterprise-api --language ts --structured</CodeBlock>
           <div className="border rounded-lg p-4">
             <h4 className="font-semibold mb-2">Generated Structure:</h4>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>{`enterprise-api/
+            <CodeBlock>
+{`enterprise-api/
 ├── src/
 │   ├── controllers/
 │   │   └── calculator.controller.ts    # Request handlers
@@ -129,8 +123,8 @@ export default function TemplatesPage() {
 ├── tsconfig.json                       # TypeScript configuration
 ├── .env                               # Environment variables
 ├── .gitignore                         # Git ignore rules
-└── README.md                          # Project documentation`}</code></pre>
-            </div>
+└── README.md                          # Project documentation`}
+</CodeBlock>
           </div>
 
           <div className="mt-6 space-y-4">
@@ -141,14 +135,14 @@ export default function TemplatesPage() {
               <p className="text-sm text-muted-foreground">
                 Handle HTTP requests and responses. Manage request validation, call services, and format responses.
               </p>
-              <div className="rounded-md bg-muted p-2 mt-2">
-                <pre><code className="text-xs">{`// calculator.controller.ts
+              <CodeBlock language="typescript" showCard={false} className="mt-2">
+{`// calculator.controller.ts
 export class CalculatorController {
   add(req: Request, res: Response) {
     // Handle add operation
   }
-}`}</code></pre>
-              </div>
+}`}
+              </CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -156,11 +150,11 @@ export class CalculatorController {
               <p className="text-sm text-muted-foreground">
                 Define API endpoints and middleware. Connect URLs to controller methods.
               </p>
-              <div className="rounded-md bg-muted p-2 mt-2">
-                <pre><code className="text-xs">{`// calculator.route.ts
+              <CodeBlock language="typescript" showCard={false} className="mt-2">
+{`// calculator.route.ts
 router.post('/add', calculatorController.add);
-router.get('/', calculatorController.getInfo);`}</code></pre>
-              </div>
+router.get('/', calculatorController.getInfo);`}
+              </CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -168,14 +162,14 @@ router.get('/', calculatorController.getInfo);`}</code></pre>
               <p className="text-sm text-muted-foreground">
                 Contain business logic, data processing, and external API calls.
               </p>
-              <div className="rounded-md bg-muted p-2 mt-2">
-                <pre><code className="text-xs">{`// calculator.service.ts
+              <CodeBlock language="typescript" showCard={false} className="mt-2">
+{`// calculator.service.ts
 export class CalculatorService {
   add(a: number, b: number): number {
     return a + b;
   }
-}`}</code></pre>
-              </div>
+}`}
+              </CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
@@ -183,8 +177,8 @@ export class CalculatorService {
               <p className="text-sm text-muted-foreground">
                 Define data structures, interfaces, and type definitions.
               </p>
-              <div className="rounded-md bg-muted p-2 mt-2">
-                <pre><code className="text-xs">{`// calculation.model.ts
+              <CodeBlock language="typescript" showCard={false} className="mt-2">
+{`// calculation.model.ts
 export interface CalculationRequest {
   a: number;
   b: number;
@@ -192,24 +186,24 @@ export interface CalculationRequest {
 
 export interface CalculationResponse {
   result: number;
-}`}</code></pre>
-              </div>
+}`}
+              </CodeBlock>
             </div>
           </div>
 
           <div className="mt-6">
             <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Sample API:</h3>
             <p className="leading-7 mb-4">The structured template includes a working calculator API:</p>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>{`# Get API info
+            <CodeBlock>
+{`# Get API info
 GET /api/calculator
 Response: { "message": "Calculator API is working!" }
 
 # Add two numbers
 POST /api/calculator/add
 Body: { "a": 5, "b": 3 }
-Response: { "result": 8 }`}</code></pre>
-            </div>
+Response: { "result": 8 }`}
+</CodeBlock>
           </div>
         </section>
 
@@ -221,19 +215,17 @@ Response: { "result": 8 }`}</code></pre>
             Any template can include Docker configuration for containerized deployment.
           </p>
           
-          <div className="rounded-md bg-muted p-4">
-            <pre><code>kickstart-express --name docker-api --language ts --docker --structured</code></pre>
-          </div>
+          <CodeBlock>kickstart-express --name docker-api --language ts --docker --structured</CodeBlock>
           <div className="border rounded-lg p-4">
             <h4 className="font-semibold mb-2">Additional Docker Files:</h4>
-            <div className="rounded-md bg-muted p-4">
-              <pre><code>{`docker-api/
+            <CodeBlock>
+{`docker-api/
 ├── Dockerfile              # Container definition
 ├── docker-compose.yml      # Service composition
 ├── .dockerignore          # Docker ignore rules
 ├── src/                   # Application code
-└── ...                    # Other project files`}</code></pre>
-            </div>
+└── ...                    # Other project files`}
+</CodeBlock>
           </div>
 
           <div className="mt-6 space-y-4">
@@ -323,35 +315,13 @@ Response: { "result": 8 }`}</code></pre>
           <div className="space-y-6 mt-6">
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Simple Template - index.ts</h3>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Routes
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from Express!' });
-});
-
-app.listen(PORT, () => {
-  console.log(\`Server running on port \${PORT}\`);
-});`}</code></pre>
-              </div>
+              <CodeBlock>{`import express from 'express'; import cors from 'cors'; import dotenv from 'dotenv'; dotenv.config(); const app = express(); const PORT = process.env.PORT || 3000; // Middleware app.use(cors()); app.use(express.json()); // Routes app.get('/', (req, res) => { res.json({ message: 'Hello from Express!' }); }); app.listen(PORT, () => { console.log(\`Server running on port \${PORT}\`); });`}</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Structured Template - Controller</h3>
-              <div className="rounded-md bg-muted p-4">
-                <pre><code>{`import { Request, Response } from 'express';
+              <CodeBlock>
+{`import { Request, Response } from 'express';
 import { CalculatorService } from '../services/calculator.service';
 import { CalculationRequest } from '../models/calculation.model';
 
@@ -375,8 +345,8 @@ export class CalculatorController {
       res.status(400).json({ error: 'Invalid input' });
     }
   };
-}`}</code></pre>
-              </div>
+}`}
+</CodeBlock>
             </div>
           </div>
         </section>
