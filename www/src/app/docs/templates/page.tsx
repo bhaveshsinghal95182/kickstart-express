@@ -315,7 +315,26 @@ Response: { "result": 8 }`}
           <div className="space-y-6 mt-6">
             <div className="border rounded-lg p-4">
               <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Simple Template - index.ts</h3>
-              <CodeBlock>{`import express from 'express'; import cors from 'cors'; import dotenv from 'dotenv'; dotenv.config(); const app = express(); const PORT = process.env.PORT || 3000; // Middleware app.use(cors()); app.use(express.json()); // Routes app.get('/', (req, res) => { res.json({ message: 'Hello from Express!' }); }); app.listen(PORT, () => { console.log(\`Server running on port \${PORT}\`); });`}</CodeBlock>
+              <CodeBlock>{`import express from 'express';
+               import cors from 'cors';
+                import dotenv from 'dotenv';
+                 dotenv.config();
+                  const app = express();
+                  const PORT = process.env.PORT || 3000;
+
+                  // Middleware
+                  app.use(cors());
+                  app.use(express.json());
+
+                  // Routes
+                  app.get('/', (req, res) => {
+                    res.json({ message: 'Hello from Express!' });
+                  });
+
+                  app.listen(PORT, () => {
+                    console.log("Server running on port", PORT);}");
+                  });
+                `}</CodeBlock>
             </div>
 
             <div className="border rounded-lg p-4">
