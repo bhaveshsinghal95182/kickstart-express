@@ -4,6 +4,7 @@ import path from "path";
 import { exec as execCallback } from "child_process";
 import { promisify } from "util";
 import ora from "ora";
+import chalk from "chalk";
 import { fileURLToPath } from "url";
 
 const exec = promisify(execCallback);
@@ -263,6 +264,13 @@ vite.config.ts.timestamp-*`;
         },
       ]);
       this.options.src = src;
+
+      // Show suggestion if user chooses no src folder
+      if (!src) {
+        console.log("\n" + chalk.blue("💡 Suggestion:"), chalk.yellow("For best use of Kickstart.express, consider using a 'src' folder with structured architecture."));
+        console.log("  ", chalk.gray("This provides better organization with controllers, services, and routes separation."));
+        console.log("  ", chalk.gray("You can still proceed with your current choice.\n"));
+      }
     }
 
     // Only prompt for structured src if src folder is enabled and structured option not provided via CLI
@@ -388,6 +396,37 @@ vite.config.ts.timestamp-*`;
     }
     
     await fs.writeJson(pkgPath, pkg, { spaces: 2 });
+
+    // Generate components.json to track user setup
+    const componentsConfig = this.generateComponentsJson();
+    const componentsPath = path.join(dest, "components.json");
+    await fs.writeJson(componentsPath, componentsConfig, { spaces: 2 });
+    console.log("📋 Generated components.json to track your setup configuration.");
+  }
+
+  // Generate components.json to track user setup
+  generateComponentsJson() {
+    const config = {
+      name: this.projectName,
+      language: this.options.language,
+      architecture: {
+        src: this.options.src,
+        structured: this.options.structuredSrc,
+        docker: this.options.docker
+      },
+      generated: new Date().toISOString(),
+      version: "1.3.3"
+    };
+
+    // Add suggestion if user chose single index file structure
+    if (!this.options.src) {
+      config.suggestion = {
+        recommended: "src-structured",
+        reason: "Better organization and scalability for Express.js applications. Consider using 'src' folder with structured architecture (controllers, services, routes) for best use of Kickstart.express."
+      };
+    }
+
+    return config;
   }
 
   // Methods for graceful error handling
