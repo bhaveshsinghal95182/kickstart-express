@@ -1,4 +1,4 @@
-# Kickstart Express
+# Kickstart Express v2
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Downloads](https://img.shields.io/npm/dm/kickstart-express.svg)](https://www.npmjs.com/package/kickstart-express)
@@ -17,8 +17,11 @@ A powerful CLI tool to quickly scaffold Express.js projects with modern tooling 
 # Install globally
 npm install -g kickstart-express
 
-# Create a new project
+# Create a new project (default behavior)
 kickstart-express --name my-api --language ts --docker --src --structured
+
+# Add features to existing projects
+kickstart-express add database
 
 # Navigate and start
 cd my-api && pnpm dev
@@ -46,6 +49,8 @@ Your Express server will be running at `http://localhost:3000` with a fully conf
 
 ## 🚀 Features
 
+- **Simplified CLI** - No more "create" command needed - scaffolding is the default behavior
+- **Feature Addition** - Use `add` command to extend existing projects with databases, auth, and more
 - **Interactive & Non-Interactive CLI** - Use prompts or pass arguments for instant scaffolding
 - **Graceful Interruption Handling** - Safe Ctrl+C handling with automatic cleanup of partial projects
 - **TypeScript & JavaScript Support** - Choose your preferred language
@@ -68,8 +73,10 @@ npx kickstart-express
 
 ## 🛠️ Usage
 
-### Interactive Mode (Default)
-Simply run the command and follow the interactive prompts:
+### Creating New Projects
+
+#### Interactive Mode (Default)
+Simply run the command and follow the interactive prompts to create a new Express.js project:
 
 ```bash
 kickstart-express
@@ -82,14 +89,14 @@ The CLI will ask you:
 4. **Source folder structure** - Simple or organized structure
 5. **Structured architecture** - Controllers, services, and routes separation
 
-### Non-Interactive Mode (CLI Arguments)
+#### Non-Interactive Mode (CLI Arguments)
 You can also pass arguments to skip prompts and scaffold projects instantly:
 
 ```bash
 kickstart-express --name my-api --language ts --docker --src --structured
 ```
 
-#### Available CLI Options:
+#### Available CLI Options for Project Creation:
 - `-n, --name <project-name>` - Specify the project name
 - `-l, --language <ts|js>` - Choose language (default: ts)
 - `-d, --docker` - Include Dockerfile and docker-compose.yml
@@ -98,7 +105,30 @@ kickstart-express --name my-api --language ts --docker --src --structured
 - `-h, --help` - Display help information
 - `-V, --version` - Display version number
 
+### Adding Features to Existing Projects
+
+Kickstart Express v2 introduces the `add` command to extend your existing projects:
+
+```bash
+kickstart-express add <feature>
+```
+
+#### Available Features:
+- `database` or `db` - Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)
+- `auth` - Add authentication support (JWT or Clerk)
+
 #### Examples:
+```bash
+# Add database support to existing project
+kickstart-express add database
+
+# Add authentication to existing project
+kickstart-express add auth
+```
+
+### Examples
+
+#### Create Projects:
 
 **TypeScript project with all features:**
 ```bash
@@ -118,6 +148,20 @@ kickstart-express --name my-app --docker
 **Quick TypeScript project with src folder:**
 ```bash
 kickstart-express -n quick-api -s
+```
+
+#### Add Features:
+
+**Add database support:**
+```bash
+cd my-existing-project
+kickstart-express add database
+```
+
+**Add authentication:**
+```bash
+cd my-existing-project
+kickstart-express add auth
 ```
 
 ## 📁 Project Templates
@@ -164,7 +208,9 @@ my-app/
 
 ## 🏃‍♂️ Quick Start Examples
 
-### Interactive Mode
+### Create New Projects
+
+#### Interactive Mode
 ```bash
 # Install the CLI
 npm install -g kickstart-express
@@ -189,7 +235,7 @@ pnpm install
 pnpm dev
 ```
 
-### Non-Interactive Mode
+#### Non-Interactive Mode
 ```bash
 # Install the CLI
 npm install -g kickstart-express
@@ -205,6 +251,19 @@ pnpm install
 
 # Start development server
 pnpm dev
+```
+
+### Add Features to Existing Projects
+
+```bash
+# Navigate to your existing kickstart-express project
+cd my-existing-project
+
+# Add database support
+kickstart-express add database
+
+# Add authentication
+kickstart-express add auth
 ```
 
 Your Express server will be running at `http://localhost:3000`!
@@ -239,10 +298,14 @@ docker-compose up --build  # Build and run with Docker
 
 ## 🌟 What's Included
 
-### Dependencies
+### Project Scaffolding
 - **Express.js** - Fast, unopinionated web framework
 - **CORS** - Cross-origin resource sharing middleware
 - **dotenv** - Environment variable management
+
+### Feature Addition (New in v2)
+- **Database Support** - MongoDB/PostgreSQL with multiple ORMs
+- **Authentication** - JWT or Clerk authentication systems
 
 ### TypeScript Projects Include
 - **TypeScript** - Static type checking
@@ -293,10 +356,13 @@ Define data structures, interfaces, and type definitions.
 
 For comprehensive documentation, visit our online docs at **[docs.kickstart.express](https://docs.kickstart.express)**:
 
+### v2 Documentation
 - **[Getting Started](https://docs.kickstart.express/docs/getting-started)** - Installation and first steps
-- **[CLI Reference](https://docs.kickstart.express/docs/cli-reference)** - Complete command-line options
+- **[CLI Reference](https://docs.kickstart.express/docs/cli-reference)** - Complete command-line options for v2
+- **[Adding Features](https://docs.kickstart.express/docs/adding-features)** - Guide to using the new `add` command
 - **[Usage Examples](https://docs.kickstart.express/docs/examples)** - Real-world examples and use cases
 - **[Project Templates](https://docs.kickstart.express/docs/templates)** - Understanding generated structures
+- **[Migration Guide](https://docs.kickstart.express/docs/migration)** - Upgrading from v1 to v2
 - **[API Reference](https://docs.kickstart.express/docs/api-reference)** - Programmatic usage
 - **[Contributing](https://docs.kickstart.express/docs/contributing)** - Development and contribution guide
 - **[FAQ](https://docs.kickstart.express/docs/faq)** - Frequently asked questions

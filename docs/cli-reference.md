@@ -1,37 +1,66 @@
-# CLI Reference
+# CLI Reference v2
 
-Complete reference for all Kickstart Express command-line interface options.
+Complete reference for all Kickstart Express v2 command-line interface options.
+
+## What's New in v2
+
+- **Simplified CLI**: Removed the `create` command - scaffolding is now the default behavior
+- **Add Command**: New `add` command to extend existing projects with features like databases and authentication
+- **Streamlined Workflow**: More intuitive command structure
 
 ## Command Syntax
 
+### Project Scaffolding (Default Behavior)
 ```bash
 kickstart-express [options]
 ```
 
+### Adding Features to Existing Projects
+```bash
+kickstart-express add <feature>
+```
+
 ## Usage Modes
 
-Kickstart Express supports three distinct usage modes:
+Kickstart Express v2 supports two main usage modes:
 
-### 1. Full Interactive Mode
+### 1. Project Scaffolding
+
+#### Full Interactive Mode
 No arguments provided - prompts for all options:
 ```bash
 kickstart-express
 ```
 
-### 2. Partial Interactive Mode
+#### Partial Interactive Mode
 Some arguments provided - prompts only for missing options:
 ```bash
 kickstart-express --name my-app --docker
 # Will prompt for: language, src folder, structured architecture
 ```
 
-### 3. Full Non-Interactive Mode
+#### Full Non-Interactive Mode
 All required arguments provided - no prompts:
 ```bash
 kickstart-express --name my-app --language ts --docker --src --structured
 ```
 
+### 2. Feature Addition
+
+Add features to existing kickstart-express projects:
+```bash
+kickstart-express add <feature>
+```
+
+Available features:
+- `database` or `db` - Database support (MongoDB/PostgreSQL)
+- `auth` - Authentication support (JWT/Clerk)
+
 ## CLI Options
+
+### Project Scaffolding Options
+
+These options are used when creating new projects (default behavior):
 
 ### Project Identification
 
@@ -140,28 +169,65 @@ Displays the current version of Kickstart Express.
 - **Example:** `--version`
 - **Aliases:** `-V`
 
+### Feature Addition Options
+
+#### `add <feature>`
+Adds features to an existing kickstart-express project.
+
+- **Type:** Command with required argument
+- **Available features:**
+  - `database` or `db` - Database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)
+  - `auth` - Authentication support (JWT or Clerk)
+- **Examples:** 
+  ```bash
+  kickstart-express add database
+  kickstart-express add auth
+  ```
+
+**Notes:**
+- Must be run from within an existing kickstart-express project directory
+- Interactive prompts will guide you through feature configuration
+- Features can be added independently or combined
+
 ## Option Combinations
 
 ### Recommended Combinations
 
-#### Minimal TypeScript API
+#### Project Scaffolding
+
+**Minimal TypeScript API**
 ```bash
 kickstart-express --name simple-api --language ts
 ```
 
-#### Full-Featured TypeScript API
+**Full-Featured TypeScript API**
 ```bash
 kickstart-express --name enterprise-api --language ts --docker --src --structured
 ```
 
-#### JavaScript Project with Docker
+**JavaScript Project with Docker**
 ```bash
 kickstart-express --name js-api --language js --docker --src
 ```
 
-#### Quick Prototyping
+**Quick Prototyping**
 ```bash
 kickstart-express --name prototype --language js
+```
+
+#### Feature Addition Workflow
+
+**Complete Setup with Database and Auth**
+```bash
+# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add database support
+cd my-api
+kickstart-express add database
+
+# 3. Add authentication
+kickstart-express add auth
 ```
 
 ### Option Dependencies
