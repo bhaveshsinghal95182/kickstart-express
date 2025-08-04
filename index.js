@@ -50,8 +50,17 @@ program
   .description(
     "Add features to an existing kickstart-express project\n\nAvailable features:\n  db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)\n  auth            Add authentication support (JWT or Clerk)"
   )
-  .action(async (feature) => {
-    const adder = new Adder();
+  .option("--db-type <type>", "database type (mongodb, postgres)")
+  .option("--orm <orm>", "ORM/ODM to use (mongoose, prisma, drizzle)")
+  .option("--auth-type <type>", "authentication type (jwt, clerk)")
+  .action(async (feature, options) => {
+    // Extract CLI options for the add command
+    const addOptions = {};
+    if (options.dbType) addOptions.dbType = options.dbType;
+    if (options.orm) addOptions.orm = options.orm;
+    if (options.authType) addOptions.authType = options.authType;
+    
+    const adder = new Adder(addOptions);
     await adder.run(feature);
   });
 
