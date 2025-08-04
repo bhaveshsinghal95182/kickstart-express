@@ -107,24 +107,68 @@ kickstart-express --name my-api --language ts --docker --src --structured
 
 ### Adding Features to Existing Projects
 
-Kickstart Express v2 introduces the `add` command to extend your existing projects:
+Kickstart Express v2 introduces the `add` command to extend your existing projects with both interactive and non-interactive modes:
 
 ```bash
-kickstart-express add <feature>
+kickstart-express add <feature> [options]
 ```
 
 #### Available Features:
 - `database` or `db` - Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)
 - `auth` - Add authentication support (JWT or Clerk)
 
-#### Examples:
-```bash
-# Add database support to existing project
-kickstart-express add database
+#### Interactive Mode (Default)
+When run without CLI options, prompts guide you through feature configuration:
 
-# Add authentication to existing project
+```bash
+# Interactive database setup
+kickstart-express add db
+
+# Interactive authentication setup
 kickstart-express add auth
 ```
+
+#### Non-Interactive Mode (CLI Arguments)
+Skip prompts by providing configuration options directly:
+
+**Database CLI Options:**
+- `--db-type <mongodb|postgres>` - Database type selection
+- `--orm <mongoose|prisma|drizzle>` - ORM/ODM selection
+
+**Authentication CLI Options:**
+- `--auth-type <jwt|clerk>` - Authentication type selection
+
+#### Examples:
+
+**Interactive Mode:**
+```bash
+# Add database support (interactive prompts)
+kickstart-express add database
+
+# Add authentication (interactive prompts)
+kickstart-express add auth
+```
+
+**Non-Interactive Mode:**
+```bash
+# Add MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# Add PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# Add PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+
+# Add JWT authentication
+kickstart-express add auth --auth-type jwt
+
+# Add Clerk authentication
+kickstart-express add auth --auth-type clerk
+```
+
+**Fallback Behavior:**
+When run outside a kickstart-express project, the add command will prompt to create a new project instead.
 
 ### Examples
 
@@ -152,16 +196,41 @@ kickstart-express -n quick-api -s
 
 #### Add Features:
 
-**Add database support:**
+**Interactive Mode:**
 ```bash
+# Add database support with prompts
 cd my-existing-project
 kickstart-express add database
+
+# Add authentication with prompts
+kickstart-express add auth
 ```
 
-**Add authentication:**
+**Non-Interactive Mode:**
 ```bash
 cd my-existing-project
-kickstart-express add auth
+
+# Add MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# Add PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# Add JWT authentication
+kickstart-express add auth --auth-type jwt
+```
+
+**Complete Workflow:**
+```bash
+# 1. Create project
+kickstart-express -n my-api -l ts -d -s --structured
+
+# 2. Add database support
+cd my-api
+kickstart-express add db --db-type postgres --orm prisma
+
+# 3. Add authentication
+kickstart-express add auth --auth-type jwt
 ```
 
 ## 📁 Project Templates

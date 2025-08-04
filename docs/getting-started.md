@@ -90,40 +90,64 @@ This downloads and runs the latest version each time.
 
 ### Adding Features to Your Project
 
-Once you have a project created, you can enhance it with additional features:
+Once you have a project created, you can enhance it with additional features using both interactive and non-interactive modes:
 
-1. **Add database support:**
+#### Interactive Mode (Recommended for Beginners)
+
+1. **Add database support with prompts:**
    ```bash
    cd my-first-api
    kickstart-express add database
    ```
 
-2. **Add authentication:**
+2. **Add authentication with prompts:**
    ```bash
    kickstart-express add auth
    ```
 
 3. **Follow the interactive prompts** to configure each feature according to your needs.
 
-### Non-Interactive Mode (For Advanced Users)
+#### Non-Interactive Mode (For Advanced Users & Automation)
 
-Create a project instantly with CLI arguments:
+Skip prompts by providing configuration options directly:
+
+**Database Features:**
+```bash
+cd my-first-api
+
+# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+```
+
+**Authentication Features:**
+```bash
+# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication
+kickstart-express add auth --auth-type clerk
+```
+
+### Non-Interactive Project Creation & Feature Addition
+
+Create a project and add features instantly with CLI arguments:
 
 ```bash
+# 1. Create project (non-interactive)
 kickstart-express --name my-api --language ts --docker --src --structured
 cd my-api
 pnpm install
 pnpm dev
-```
 
-Then add features as needed:
-
-```bash
-# Add database support
-kickstart-express add database
-
-# Add authentication
-kickstart-express add auth
+# 2. Add features (non-interactive)
+kickstart-express add db --db-type postgres --orm prisma
+kickstart-express add auth --auth-type jwt
 ```
 
 ## What You Get
@@ -169,11 +193,15 @@ kickstart-express
 # Create new project (non-interactive)
 kickstart-express -n my-app -l ts -d -s --structured
 
-# Add database support
+# Add features (interactive mode)
 kickstart-express add database
-
-# Add authentication
 kickstart-express add auth
+
+# Add features (non-interactive mode)
+kickstart-express add db --db-type mongodb --orm mongoose
+kickstart-express add db --db-type postgres --orm prisma
+kickstart-express add auth --auth-type jwt
+kickstart-express add auth --auth-type clerk
 
 # Get help
 kickstart-express --help

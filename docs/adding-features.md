@@ -19,19 +19,43 @@ The `add` command allows you to extend your existing kickstart-express projects 
 
 ### Database Support
 
-Add comprehensive database support to your project:
+Add comprehensive database support to your project using either interactive or non-interactive modes:
 
+#### Interactive Mode
 ```bash
 kickstart-express add database
 # or
 kickstart-express add db
 ```
 
+The CLI will prompt you to choose:
+1. Database type (MongoDB or PostgreSQL)
+2. ORM/ODM (Mongoose, Prisma, or Drizzle)
+
+#### Non-Interactive Mode
+Use CLI arguments to skip prompts and add database support directly:
+
+```bash
+# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+```
+
+**CLI Options:**
+- `--db-type <mongodb|postgres>` - Database type selection
+- `--orm <mongoose|prisma|drizzle>` - ORM/ODM selection
+
+**Note:** Both `--db-type` and `--orm` must be provided together for non-interactive mode.
+
 #### Supported Databases:
 - **MongoDB** with Mongoose
 - **PostgreSQL** with Prisma
 - **PostgreSQL** with Drizzle
-- **SQLite** with Prisma (for development)
 
 #### What Gets Added:
 - Database connection configuration
@@ -42,11 +66,28 @@ kickstart-express add db
 
 ### Authentication
 
-Add authentication support to your project:
+Add authentication support to your project using either interactive or non-interactive modes:
 
+#### Interactive Mode
 ```bash
 kickstart-express add auth
 ```
+
+The CLI will prompt you to choose between JWT and Clerk authentication.
+
+#### Non-Interactive Mode
+Use CLI arguments to specify the authentication type directly:
+
+```bash
+# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication
+kickstart-express add auth --auth-type clerk
+```
+
+**CLI Options:**
+- `--auth-type <jwt|clerk>` - Authentication type selection
 
 #### Supported Authentication Methods:
 - **JWT (JSON Web Tokens)** - Self-hosted authentication
@@ -64,6 +105,7 @@ kickstart-express add auth
 
 ### Complete Project Setup
 
+#### Interactive Workflow
 ```bash
 # 1. Create a new project
 kickstart-express --name my-api --language ts --docker --src --structured
@@ -75,24 +117,56 @@ cd my-api
 pnpm install
 pnpm dev
 
-# 4. In a new terminal, add database support
+# 4. In a new terminal, add database support (interactive)
 kickstart-express add database
 
-# 5. Add authentication
+# 5. Add authentication (interactive)
 kickstart-express add auth
+```
+
+#### Non-Interactive Workflow
+```bash
+# 1. Create a new project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Navigate to project
+cd my-api
+
+# 3. Install dependencies and start development
+pnpm install
+pnpm dev
+
+# 4. In a new terminal, add PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# 5. Add JWT authentication
+kickstart-express add auth --auth-type jwt
 ```
 
 ### Adding to Existing Projects
 
+#### Interactive Mode
 If you have an existing kickstart-express project:
 
 ```bash
 # Navigate to your project
 cd my-existing-project
 
-# Add any missing features
+# Add features with prompts
 kickstart-express add database
 kickstart-express add auth
+```
+
+#### Non-Interactive Mode
+For automation or scripting:
+
+```bash
+# Navigate to your project
+cd my-existing-project
+
+# Add specific database and auth setup
+kickstart-express add db --db-type mongodb --orm mongoose
+kickstart-express add auth --auth-type clerk
 ```
 
 ## Interactive Configuration

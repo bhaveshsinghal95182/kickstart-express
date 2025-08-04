@@ -171,23 +171,80 @@ Displays the current version of Kickstart Express.
 
 ### Feature Addition Options
 
-#### `add <feature>`
-Adds features to an existing kickstart-express project.
+#### `add <feature> [options]`
+Adds features to an existing kickstart-express project. Supports both interactive and non-interactive modes.
 
-- **Type:** Command with required argument
+- **Type:** Command with required argument and optional CLI options
 - **Available features:**
   - `database` or `db` - Database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)
   - `auth` - Authentication support (JWT or Clerk)
-- **Examples:** 
-  ```bash
-  kickstart-express add database
-  kickstart-express add auth
-  ```
 
-**Notes:**
-- Must be run from within an existing kickstart-express project directory
-- Interactive prompts will guide you through feature configuration
-- Features can be added independently or combined
+#### Database Addition Options
+
+**Interactive Mode:**
+```bash
+kickstart-express add db    # Prompts for database type and ORM
+```
+
+**Non-Interactive Mode:**
+```bash
+kickstart-express add db --db-type <mongodb|postgres> --orm <mongoose|prisma|drizzle>
+```
+
+**CLI Options:**
+- `--db-type <mongodb|postgres>` - Database type selection
+- `--orm <mongoose|prisma|drizzle>` - ORM/ODM selection
+
+**Valid Combinations:**
+- MongoDB: `mongoose` only
+- PostgreSQL: `prisma` or `drizzle`
+
+**Examples:**
+```bash
+# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+```
+
+#### Authentication Addition Options
+
+**Interactive Mode:**
+```bash
+kickstart-express add auth    # Prompts for authentication type
+```
+
+**Non-Interactive Mode:**
+```bash
+kickstart-express add auth --auth-type <jwt|clerk>
+```
+
+**CLI Options:**
+- `--auth-type <jwt|clerk>` - Authentication type selection
+
+**Examples:**
+```bash
+# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication  
+kickstart-express add auth --auth-type clerk
+```
+
+**Validation & Error Handling:**
+- Validates DB/ORM combinations (prevents invalid combinations like mongodb+drizzle)
+- Requires both `--db-type` and `--orm` when either is specified for database features
+- Validates authentication types against supported options
+- Provides helpful examples and guidance in error messages
+
+**Fallback Behavior:**
+- When run outside a kickstart project, prompts to create a new project instead
+- If user chooses to create a new project, guides through scaffolding workflow
+- Suggests running the add command in the newly created project
 
 ## Option Combinations
 
@@ -217,17 +274,43 @@ kickstart-express --name prototype --language js
 
 #### Feature Addition Workflow
 
-**Complete Setup with Database and Auth**
+**Complete Setup with Database and Auth (Interactive)**
 ```bash
 # 1. Create project
 kickstart-express --name my-api --language ts --docker --src --structured
 
-# 2. Add database support
+# 2. Add database support (interactive)
 cd my-api
 kickstart-express add database
 
-# 3. Add authentication
+# 3. Add authentication (interactive)
 kickstart-express add auth
+```
+
+**Complete Setup with Database and Auth (Non-Interactive)**
+```bash
+# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add MongoDB with Mongoose
+cd my-api
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# 3. Add JWT authentication
+kickstart-express add auth --auth-type jwt
+```
+
+**PostgreSQL API with Prisma and Clerk**
+```bash
+# 1. Create project
+kickstart-express --name enterprise-api --language ts --docker --src --structured
+
+# 2. Add PostgreSQL with Prisma
+cd enterprise-api
+kickstart-express add db --db-type postgres --orm prisma
+
+# 3. Add Clerk authentication
+kickstart-express add auth --auth-type clerk
 ```
 
 ### Option Dependencies
