@@ -22,10 +22,20 @@ export class Adder {
     console.log(chalk.blue(`🔧 Adding ${feature} to your project...`));
 
     // Check if components.json exists
-    if (!await fs.pathExists(this.componentsPath)) {
-      console.log(chalk.red("❌ components.json not found in current directory."));
-      console.log(chalk.yellow("   This command only works in a kickstart-express project."));
-      console.log(chalk.gray("   Make sure you're in a project created with kickstart-express."));
+    if (!(await fs.pathExists(this.componentsPath))) {
+      console.log(
+        chalk.red("❌ components.json not found in current directory.")
+      );
+      console.log(
+        chalk.yellow(
+          "   This command only works in a kickstart-express project."
+        )
+      );
+      console.log(
+        chalk.gray(
+          "   Make sure you're in a project created with kickstart-express."
+        )
+      );
       return;
     }
 
@@ -33,26 +43,41 @@ export class Adder {
     try {
       this.components = await fs.readJson(this.componentsPath);
     } catch (error) {
-      console.log(chalk.red("❌ Error reading components.json:"), error.message);
+      console.log(
+        chalk.red("❌ Error reading components.json:"),
+        error.message
+      );
       return;
     }
 
     // Route to specific feature handler
     switch (feature.toLowerCase()) {
-      case 'db':
-      case 'database':
+      case "db":
+      case "database":
         await this.addDatabase();
         break;
       default:
         console.log(chalk.red(`❌ Unknown feature: ${feature}`));
-        console.log(chalk.yellow("   Available features: db"));
+        console.log(chalk.yellow("\n📋 Available features:"));
+        console.log(
+          chalk.gray(
+            "   db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)"
+          )
+        );
+        console.log(
+          chalk.gray("\n💡 Usage: npx kickstart-express add <feature>")
+        );
         return;
     }
   }
 
   async addDatabase() {
     console.log(chalk.blue("📊 Adding database support to your project..."));
-    console.log(chalk.gray(`   Project: ${this.components.name} (${this.components.language})`));
+    console.log(
+      chalk.gray(
+        `   Project: ${this.components.name} (${this.components.language})`
+      )
+    );
 
     // Prompt for database type and ORM
     const { dbType } = await inquirer.prompt([
@@ -62,9 +87,9 @@ export class Adder {
         message: "Which database do you want to use?",
         choices: [
           { name: "MongoDB", value: "mongodb" },
-          { name: "PostgreSQL", value: "postgres" }
-        ]
-      }
+          { name: "PostgreSQL", value: "postgres" },
+        ],
+      },
     ]);
 
     // Get ORM choices based on database type
@@ -72,12 +97,12 @@ export class Adder {
     if (dbType === "mongodb") {
       ormChoices = [
         { name: "Mongoose", value: "mongoose" },
-        { name: "Prisma", value: "prisma" }
+        { name: "Prisma", value: "prisma" },
       ];
     } else if (dbType === "postgres") {
       ormChoices = [
         { name: "Prisma", value: "prisma" },
-        { name: "Drizzle", value: "drizzle" }
+        { name: "Drizzle", value: "drizzle" },
       ];
     }
 
@@ -85,12 +110,20 @@ export class Adder {
       {
         name: "orm",
         type: "list",
-        message: `Which ORM/ODM do you want to use with ${dbType === 'mongodb' ? 'MongoDB' : 'PostgreSQL'}?`,
-        choices: ormChoices
-      }
+        message: `Which ORM/ODM do you want to use with ${
+          dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
+        }?`,
+        choices: ormChoices,
+      },
     ]);
 
-    console.log(chalk.green(`\n✅ Selected: ${dbType === 'mongodb' ? 'MongoDB' : 'PostgreSQL'} with ${orm}`));
+    console.log(
+      chalk.green(
+        `\n✅ Selected: ${
+          dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
+        } with ${orm}`
+      )
+    );
 
     // Apply the database template
     await this.applyDatabaseTemplate(dbType, orm);
@@ -102,17 +135,28 @@ export class Adder {
     console.log(chalk.yellow("\n📝 Next steps:"));
     console.log(chalk.gray("   1. Install dependencies: pnpm install"));
     console.log(chalk.gray("   2. Configure your database connection in .env"));
-    console.log(chalk.gray("   3. Check the generated files for usage examples"));
+    console.log(
+      chalk.gray("   3. Check the generated files for usage examples")
+    );
   }
 
   async applyDatabaseTemplate(dbType, orm) {
     const spinner = ora("Adding database files...").start();
 
     try {
-      const templateSource = path.join(this.templatePath, "add", "db", dbType, orm, this.components.language);
-      
-      if (!await fs.pathExists(templateSource)) {
-        spinner.fail(`Template not found for ${dbType}/${orm}/${this.components.language}`);
+      const templateSource = path.join(
+        this.templatePath,
+        "add",
+        "db",
+        dbType,
+        orm,
+        this.components.language
+      );
+
+      if (!(await fs.pathExists(templateSource))) {
+        spinner.fail(
+          `Template not found for ${dbType}/${orm}/${this.components.language}`
+        );
         return;
       }
 
@@ -125,12 +169,12 @@ export class Adder {
         const srcDir = path.join(this.currentDir, "src");
         await fs.copy(templateSource, srcDir, {
           overwrite: false, // Don't overwrite existing files
-          errorOnExist: false
+          errorOnExist: false,
         });
       } else {
         await fs.copy(templateSource, this.currentDir, {
           overwrite: false,
-          errorOnExist: false
+          errorOnExist: false,
         });
       }
 
@@ -150,17 +194,20 @@ export class Adder {
   async updatePackageJson(dbType, orm) {
     try {
       const pkg = await fs.readJson(this.packagePath);
-      
+
       // Add dependencies based on database and ORM choice
       const dependencies = this.getDependencies(dbType, orm);
-      
+
       pkg.dependencies = pkg.dependencies || {};
       Object.assign(pkg.dependencies, dependencies);
 
       await fs.writeJson(this.packagePath, pkg, { spaces: 2 });
       console.log(chalk.green("✓ Updated package.json with new dependencies"));
     } catch (error) {
-      console.log(chalk.yellow("⚠️  Could not update package.json:"), error.message);
+      console.log(
+        chalk.yellow("⚠️  Could not update package.json:"),
+        error.message
+      );
     }
   }
 
@@ -204,12 +251,15 @@ export class Adder {
       // Add database configuration
       let dbConfig = "";
       if (dbType === "mongodb") {
-        dbConfig = "\n# Database Configuration\nMONGODB_URI=mongodb://localhost:27017/your-database-name\n";
+        dbConfig =
+          "\n# Database Configuration\nMONGODB_URI=mongodb://localhost:27017/your-database-name\n";
       } else if (dbType === "postgres") {
         if (orm === "prisma") {
-          dbConfig = "\n# Database Configuration\nDATABASE_URL=postgresql://username:password@localhost:5432/your-database-name\n";
+          dbConfig =
+            "\n# Database Configuration\nDATABASE_URL=postgresql://username:password@localhost:5432/your-database-name\n";
         } else if (orm === "drizzle") {
-          dbConfig = "\n# Database Configuration\nDATABASE_URL=postgresql://username:password@localhost:5432/your-database-name\n";
+          dbConfig =
+            "\n# Database Configuration\nDATABASE_URL=postgresql://username:password@localhost:5432/your-database-name\n";
         }
       }
 
@@ -220,7 +270,10 @@ export class Adder {
         console.log(chalk.green("✓ Updated .env with database configuration"));
       }
     } catch (error) {
-      console.log(chalk.yellow("⚠️  Could not update .env file:"), error.message);
+      console.log(
+        chalk.yellow("⚠️  Could not update .env file:"),
+        error.message
+      );
     }
   }
 
@@ -230,13 +283,16 @@ export class Adder {
       this.components.features.database = {
         type: dbType,
         orm: orm,
-        added: new Date().toISOString()
+        added: new Date().toISOString(),
       };
 
       await fs.writeJson(this.componentsPath, this.components, { spaces: 2 });
       console.log(chalk.green("✓ Updated components.json"));
     } catch (error) {
-      console.log(chalk.yellow("⚠️  Could not update components.json:"), error.message);
+      console.log(
+        chalk.yellow("⚠️  Could not update components.json:"),
+        error.message
+      );
     }
   }
 }
