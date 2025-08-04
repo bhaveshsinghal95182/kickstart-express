@@ -6,6 +6,7 @@ import { promisify } from "util";
 import ora from "ora";
 import chalk from "chalk";
 import { fileURLToPath } from "url";
+import { Scaffolder } from "./scaffolder.js";
 
 const exec = promisify(execCallback);
 
@@ -31,12 +32,35 @@ export class Adder {
           "   This command only works in a kickstart-express project."
         )
       );
-      console.log(
-        chalk.gray(
-          "   Make sure you're in a project created with kickstart-express."
-        )
-      );
-      return;
+      
+      // Ask if user wants to start a new kickstart project
+      const { startNewProject } = await inquirer.prompt([
+        {
+          name: "startNewProject",
+          type: "confirm",
+          message: "Would you like to start a new kickstart-express project instead?",
+          default: true,
+        },
+      ]);
+
+      if (startNewProject) {
+        console.log(chalk.blue("\n🚀 Starting a new kickstart-express project..."));
+        
+        // Create a new scaffolder and run it
+        const scaffolder = new Scaffolder();
+        await scaffolder.run();
+        
+        console.log(chalk.green("\n✨ Project created successfully!"));
+        console.log(chalk.yellow(`💡 You can now run 'kickstart-express add ${feature}' inside your new project to add the ${feature} feature.`));
+        return;
+      } else {
+        console.log(
+          chalk.gray(
+            "\n   Make sure you're in a project created with kickstart-express to use the add command."
+          )
+        );
+        return;
+      }
     }
 
     // Load project configuration
