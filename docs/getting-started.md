@@ -1,6 +1,12 @@
-# Getting Started
+# Getting Started with Kickstart Express v2
 
-This guide will help you get up and running with Kickstart Express quickly.
+This guide will help you get up and running with Kickstart Express v2 quickly.
+
+## What's New in v2
+
+- **Simplified CLI**: No more `create` command needed - scaffolding is the default behavior
+- **Feature Addition**: New `add` command to extend projects with databases, authentication, and more
+- **Streamlined Workflow**: More intuitive project creation and enhancement process
 
 ## Prerequisites
 
@@ -82,19 +88,71 @@ This downloads and runs the latest version each time.
 6. **Open your browser:**
    Visit `http://localhost:3000` to see your Express server running!
 
-### Non-Interactive Mode (For Advanced Users)
+### Adding Features to Your Project
 
-Create a project instantly with CLI arguments:
+Once you have a project created, you can enhance it with additional features using both interactive and non-interactive modes:
+
+#### Interactive Mode (Recommended for Beginners)
+
+1. **Add database support with prompts:**
+   ```bash
+   cd my-first-api
+   kickstart-express add database
+   ```
+
+2. **Add authentication with prompts:**
+   ```bash
+   kickstart-express add auth
+   ```
+
+3. **Follow the interactive prompts** to configure each feature according to your needs.
+
+#### Non-Interactive Mode (For Advanced Users & Automation)
+
+Skip prompts by providing configuration options directly:
+
+**Database Features:**
+```bash
+cd my-first-api
+
+# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+```
+
+**Authentication Features:**
+```bash
+# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication
+kickstart-express add auth --auth-type clerk
+```
+
+### Non-Interactive Project Creation & Feature Addition
+
+Create a project and add features instantly with CLI arguments:
 
 ```bash
+# 1. Create project (non-interactive)
 kickstart-express --name my-api --language ts --docker --src --structured
 cd my-api
 pnpm install
 pnpm dev
+
+# 2. Add features (non-interactive)
+kickstart-express add db --db-type postgres --orm prisma
+kickstart-express add auth --auth-type jwt
 ```
 
 ## What You Get
 
+### Project Scaffolding
 Your new Express.js project includes:
 
 ✅ **Modern Express.js setup** with TypeScript/JavaScript  
@@ -104,6 +162,14 @@ Your new Express.js project includes:
 ✅ **Docker configuration** (if selected)  
 ✅ **Structured architecture** (if selected)  
 ✅ **Sample API endpoints** to get you started  
+
+### Feature Addition (New in v2)
+The `add` command can enhance your project with:
+
+✅ **Database Support** - MongoDB/PostgreSQL with multiple ORM options  
+✅ **Authentication** - JWT or Clerk authentication systems  
+✅ **API Documentation** - Swagger/OpenAPI integration (coming soon)  
+✅ **Testing Setup** - Jest/Vitest testing frameworks (coming soon)  
 
 ## Next Steps
 
@@ -121,11 +187,21 @@ Your new Express.js project includes:
 ## Quick Commands Reference
 
 ```bash
-# Interactive mode
+# Create new project (interactive mode)
 kickstart-express
 
-# Non-interactive with all features
+# Create new project (non-interactive)
 kickstart-express -n my-app -l ts -d -s --structured
+
+# Add features (interactive mode)
+kickstart-express add database
+kickstart-express add auth
+
+# Add features (non-interactive mode)
+kickstart-express add db --db-type mongodb --orm mongoose
+kickstart-express add db --db-type postgres --orm prisma
+kickstart-express add auth --auth-type jwt
+kickstart-express add auth --auth-type clerk
 
 # Get help
 kickstart-express --help

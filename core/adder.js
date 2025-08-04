@@ -6,16 +6,18 @@ import { promisify } from "util";
 import ora from "ora";
 import chalk from "chalk";
 import { fileURLToPath } from "url";
+import { Scaffolder } from "./scaffolder.js";
 
 const exec = promisify(execCallback);
 
 export class Adder {
-  constructor() {
+  constructor(cliOptions = {}) {
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
     this.templatePath = path.resolve(__dirname, "../templates");
     this.currentDir = process.cwd();
     this.componentsPath = path.join(this.currentDir, "components.json");
     this.packagePath = path.join(this.currentDir, "package.json");
+    this.cliOptions = cliOptions;
   }
 
   async run(feature) {
@@ -31,12 +33,35 @@ export class Adder {
           "   This command only works in a kickstart-express project."
         )
       );
-      console.log(
-        chalk.gray(
-          "   Make sure you're in a project created with kickstart-express."
-        )
-      );
-      return;
+      
+      // Ask if user wants to start a new kickstart project
+      const { startNewProject } = await inquirer.prompt([
+        {
+          name: "startNewProject",
+          type: "confirm",
+          message: "Would you like to start a new kickstart-express project instead?",
+          default: true,
+        },
+      ]);
+
+      if (startNewProject) {
+        console.log(chalk.blue("\n🚀 Starting a new kickstart-express project..."));
+        
+        // Create a new scaffolder and run it
+        const scaffolder = new Scaffolder();
+        await scaffolder.run();
+        
+        console.log(chalk.green("\n✨ Project created successfully!"));
+        console.log(chalk.yellow(`💡 You can now run 'kickstart-express add ${feature}' inside your new project to add the ${feature} feature.`));
+        return;
+      } else {
+        console.log(
+          chalk.gray(
+            "\n   Make sure you're in a project created with kickstart-express to use the add command."
+          )
+        );
+        return;
+      }
     }
 
     // Load project configuration
@@ -54,6 +79,17 @@ export class Adder {
     switch (feature.toLowerCase()) {
       case "db":
       case "database":
+        // Check for required options in non-interactive mode
+        if (this.cliOptions.dbType && !this.cliOptions.orm) {
+          console.log(chalk.red("❌ When specifying --db-type, you must also specify --orm"));
+          console.log(chalk.yellow("💡 Example: kickstart-express add db --db-type mongodb --orm mongoose"));
+          return;
+        }
+        if (this.cliOptions.orm && !this.cliOptions.dbType) {
+          console.log(chalk.red("❌ When specifying --orm, you must also specify --db-type"));
+          console.log(chalk.yellow("💡 Example: kickstart-express add db --db-type postgres --orm prisma"));
+          return;
+        }
         await this.addDatabase();
         break;
       case "auth":
@@ -73,9 +109,14 @@ export class Adder {
             "   auth            Add authentication support (JWT or Clerk)"
           )
         );
-        console.log(
-          chalk.gray("\n💡 Usage: npx kickstart-express add <feature>")
-        );
+        console.log(chalk.yellow("\n🔧 CLI Options:"));
+        console.log(chalk.gray("   --db-type <mongodb|postgres>   Database type"));
+        console.log(chalk.gray("   --orm <mongoose|prisma|drizzle> ORM/ODM to use"));
+        console.log(chalk.gray("   --auth-type <jwt|clerk>         Authentication type"));
+        console.log(chalk.yellow("\n💡 Examples:"));
+        console.log(chalk.gray("   kickstart-express add db --db-type mongodb --orm mongoose"));
+        console.log(chalk.gray("   kickstart-express add auth --auth-type jwt"));
+        console.log(chalk.gray("   kickstart-express add db  # Interactive mode"));
         return;
     }
   }
@@ -88,51 +129,74 @@ export class Adder {
       )
     );
 
-    // Prompt for database type and ORM
-    const { dbType } = await inquirer.prompt([
-      {
-        name: "dbType",
-        type: "list",
-        message: "Which database do you want to use?",
-        choices: [
-          { name: "MongoDB", value: "mongodb" },
-          { name: "PostgreSQL", value: "postgres" },
-        ],
-      },
-    ]);
+    let dbType, orm;
 
-    // Get ORM choices based on database type
-    let ormChoices = [];
-    if (dbType === "mongodb") {
-      ormChoices = [
-        { name: "Mongoose", value: "mongoose" },
-        { name: "Prisma", value: "prisma" },
-      ];
-    } else if (dbType === "postgres") {
-      ormChoices = [
-        { name: "Prisma", value: "prisma" },
-        { name: "Drizzle", value: "drizzle" },
-      ];
+    // Use CLI options if provided, otherwise prompt
+    if (this.cliOptions.dbType && this.cliOptions.orm) {
+      dbType = this.cliOptions.dbType;
+      orm = this.cliOptions.orm;
+      
+      // Validate the combination
+      if (!this.isValidDbOrmCombination(dbType, orm)) {
+        console.log(chalk.red(`❌ Invalid combination: ${dbType} with ${orm}`));
+        console.log(chalk.yellow("Valid combinations:"));
+        console.log(chalk.gray("   mongodb: mongoose, prisma"));
+        console.log(chalk.gray("   postgres: prisma, drizzle"));
+        return;
+      }
+      
+      console.log(chalk.green(`✅ Using CLI options: ${dbType} with ${orm}`));
+    } else {
+      // Interactive mode - prompt for database type and ORM
+      const dbResponse = await inquirer.prompt([
+        {
+          name: "dbType",
+          type: "list",
+          message: "Which database do you want to use?",
+          choices: [
+            { name: "MongoDB", value: "mongodb" },
+            { name: "PostgreSQL", value: "postgres" },
+          ],
+          default: this.cliOptions.dbType || "mongodb",
+        },
+      ]);
+      dbType = dbResponse.dbType;
+
+      // Get ORM choices based on database type
+      let ormChoices = [];
+      if (dbType === "mongodb") {
+        ormChoices = [
+          { name: "Mongoose", value: "mongoose" },
+          { name: "Prisma", value: "prisma" },
+        ];
+      } else if (dbType === "postgres") {
+        ormChoices = [
+          { name: "Prisma", value: "prisma" },
+          { name: "Drizzle", value: "drizzle" },
+        ];
+      }
+
+      const ormResponse = await inquirer.prompt([
+        {
+          name: "orm",
+          type: "list",
+          message: `Which ORM/ODM do you want to use with ${
+            dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
+          }?`,
+          choices: ormChoices,
+          default: this.cliOptions.orm || ormChoices[0].value,
+        },
+      ]);
+      orm = ormResponse.orm;
+
+      console.log(
+        chalk.green(
+          `\n✅ Selected: ${
+            dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
+          } with ${orm}`
+        )
+      );
     }
-
-    const { orm } = await inquirer.prompt([
-      {
-        name: "orm",
-        type: "list",
-        message: `Which ORM/ODM do you want to use with ${
-          dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
-        }?`,
-        choices: ormChoices,
-      },
-    ]);
-
-    console.log(
-      chalk.green(
-        `\n✅ Selected: ${
-          dbType === "mongodb" ? "MongoDB" : "PostgreSQL"
-        } with ${orm}`
-      )
-    );
 
     // Apply the database template
     await this.applyDatabaseTemplate(dbType, orm);
@@ -147,6 +211,15 @@ export class Adder {
     console.log(
       chalk.gray("   3. Check the generated files for usage examples")
     );
+  }
+
+  isValidDbOrmCombination(dbType, orm) {
+    const validCombinations = {
+      mongodb: ["mongoose", "prisma"],
+      postgres: ["prisma", "drizzle"],
+    };
+    
+    return validCombinations[dbType] && validCombinations[dbType].includes(orm);
   }
 
   async applyDatabaseTemplate(dbType, orm) {
@@ -313,24 +386,42 @@ export class Adder {
       )
     );
 
-    // Prompt for authentication type
-    const { authType } = await inquirer.prompt([
-      {
-        name: "authType",
-        type: "list",
-        message: "Which authentication method do you want to use?",
-        choices: [
-          { name: "JWT (JSON Web Tokens)", value: "jwt" },
-          { name: "Clerk (Third-party auth service)", value: "clerk" },
-        ],
-      },
-    ]);
+    let authType;
 
-    console.log(
-      chalk.green(
-        `\n✅ Selected: ${authType === "jwt" ? "JWT Authentication" : "Clerk Authentication"}`
-      )
-    );
+    // Use CLI option if provided, otherwise prompt
+    if (this.cliOptions.authType) {
+      authType = this.cliOptions.authType;
+      
+      // Validate the auth type
+      if (!this.isValidAuthType(authType)) {
+        console.log(chalk.red(`❌ Invalid authentication type: ${authType}`));
+        console.log(chalk.yellow("Valid types: jwt, clerk"));
+        return;
+      }
+      
+      console.log(chalk.green(`✅ Using CLI option: ${authType} authentication`));
+    } else {
+      // Interactive mode - prompt for authentication type
+      const response = await inquirer.prompt([
+        {
+          name: "authType",
+          type: "list",
+          message: "Which authentication method do you want to use?",
+          choices: [
+            { name: "JWT (JSON Web Tokens)", value: "jwt" },
+            { name: "Clerk (Third-party auth service)", value: "clerk" },
+          ],
+          default: this.cliOptions.authType || "jwt",
+        },
+      ]);
+      authType = response.authType;
+
+      console.log(
+        chalk.green(
+          `\n✅ Selected: ${authType === "jwt" ? "JWT Authentication" : "Clerk Authentication"}`
+        )
+      );
+    }
 
     // Apply the authentication template
     await this.applyAuthTemplate(authType);
@@ -352,6 +443,11 @@ export class Adder {
       console.log(chalk.gray("   3. Configure your Clerk keys in .env"));
       console.log(chalk.gray("   4. Check the generated files for usage examples"));
     }
+  }
+
+  isValidAuthType(authType) {
+    const validTypes = ["jwt", "clerk"];
+    return validTypes.includes(authType);
   }
 
   async applyAuthTemplate(authType) {

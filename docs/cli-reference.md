@@ -1,37 +1,66 @@
-# CLI Reference
+# CLI Reference v2
 
-Complete reference for all Kickstart Express command-line interface options.
+Complete reference for all Kickstart Express v2 command-line interface options.
+
+## What's New in v2
+
+- **Simplified CLI**: Removed the `create` command - scaffolding is now the default behavior
+- **Add Command**: New `add` command to extend existing projects with features like databases and authentication
+- **Streamlined Workflow**: More intuitive command structure
 
 ## Command Syntax
 
+### Project Scaffolding (Default Behavior)
 ```bash
 kickstart-express [options]
 ```
 
+### Adding Features to Existing Projects
+```bash
+kickstart-express add <feature>
+```
+
 ## Usage Modes
 
-Kickstart Express supports three distinct usage modes:
+Kickstart Express v2 supports two main usage modes:
 
-### 1. Full Interactive Mode
+### 1. Project Scaffolding
+
+#### Full Interactive Mode
 No arguments provided - prompts for all options:
 ```bash
 kickstart-express
 ```
 
-### 2. Partial Interactive Mode
+#### Partial Interactive Mode
 Some arguments provided - prompts only for missing options:
 ```bash
 kickstart-express --name my-app --docker
 # Will prompt for: language, src folder, structured architecture
 ```
 
-### 3. Full Non-Interactive Mode
+#### Full Non-Interactive Mode
 All required arguments provided - no prompts:
 ```bash
 kickstart-express --name my-app --language ts --docker --src --structured
 ```
 
+### 2. Feature Addition
+
+Add features to existing kickstart-express projects:
+```bash
+kickstart-express add <feature>
+```
+
+Available features:
+- `database` or `db` - Database support (MongoDB/PostgreSQL)
+- `auth` - Authentication support (JWT/Clerk)
+
 ## CLI Options
+
+### Project Scaffolding Options
+
+These options are used when creating new projects (default behavior):
 
 ### Project Identification
 
@@ -140,28 +169,148 @@ Displays the current version of Kickstart Express.
 - **Example:** `--version`
 - **Aliases:** `-V`
 
+### Feature Addition Options
+
+#### `add <feature> [options]`
+Adds features to an existing kickstart-express project. Supports both interactive and non-interactive modes.
+
+- **Type:** Command with required argument and optional CLI options
+- **Available features:**
+  - `database` or `db` - Database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)
+  - `auth` - Authentication support (JWT or Clerk)
+
+#### Database Addition Options
+
+**Interactive Mode:**
+```bash
+kickstart-express add db    # Prompts for database type and ORM
+```
+
+**Non-Interactive Mode:**
+```bash
+kickstart-express add db --db-type <mongodb|postgres> --orm <mongoose|prisma|drizzle>
+```
+
+**CLI Options:**
+- `--db-type <mongodb|postgres>` - Database type selection
+- `--orm <mongoose|prisma|drizzle>` - ORM/ODM selection
+
+**Valid Combinations:**
+- MongoDB: `mongoose` only
+- PostgreSQL: `prisma` or `drizzle`
+
+**Examples:**
+```bash
+# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle
+```
+
+#### Authentication Addition Options
+
+**Interactive Mode:**
+```bash
+kickstart-express add auth    # Prompts for authentication type
+```
+
+**Non-Interactive Mode:**
+```bash
+kickstart-express add auth --auth-type <jwt|clerk>
+```
+
+**CLI Options:**
+- `--auth-type <jwt|clerk>` - Authentication type selection
+
+**Examples:**
+```bash
+# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication  
+kickstart-express add auth --auth-type clerk
+```
+
+**Validation & Error Handling:**
+- Validates DB/ORM combinations (prevents invalid combinations like mongodb+drizzle)
+- Requires both `--db-type` and `--orm` when either is specified for database features
+- Validates authentication types against supported options
+- Provides helpful examples and guidance in error messages
+
+**Fallback Behavior:**
+- When run outside a kickstart project, prompts to create a new project instead
+- If user chooses to create a new project, guides through scaffolding workflow
+- Suggests running the add command in the newly created project
+
 ## Option Combinations
 
 ### Recommended Combinations
 
-#### Minimal TypeScript API
+#### Project Scaffolding
+
+**Minimal TypeScript API**
 ```bash
 kickstart-express --name simple-api --language ts
 ```
 
-#### Full-Featured TypeScript API
+**Full-Featured TypeScript API**
 ```bash
 kickstart-express --name enterprise-api --language ts --docker --src --structured
 ```
 
-#### JavaScript Project with Docker
+**JavaScript Project with Docker**
 ```bash
 kickstart-express --name js-api --language js --docker --src
 ```
 
-#### Quick Prototyping
+**Quick Prototyping**
 ```bash
 kickstart-express --name prototype --language js
+```
+
+#### Feature Addition Workflow
+
+**Complete Setup with Database and Auth (Interactive)**
+```bash
+# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add database support (interactive)
+cd my-api
+kickstart-express add database
+
+# 3. Add authentication (interactive)
+kickstart-express add auth
+```
+
+**Complete Setup with Database and Auth (Non-Interactive)**
+```bash
+# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add MongoDB with Mongoose
+cd my-api
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# 3. Add JWT authentication
+kickstart-express add auth --auth-type jwt
+```
+
+**PostgreSQL API with Prisma and Clerk**
+```bash
+# 1. Create project
+kickstart-express --name enterprise-api --language ts --docker --src --structured
+
+# 2. Add PostgreSQL with Prisma
+cd enterprise-api
+kickstart-express add db --db-type postgres --orm prisma
+
+# 3. Add Clerk authentication
+kickstart-express add auth --auth-type clerk
 ```
 
 ### Option Dependencies

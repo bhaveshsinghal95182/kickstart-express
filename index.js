@@ -42,18 +42,7 @@ program
   )
   .version(version);
 
-// Create command for scaffolding new projects
-program
-  .command("create")
-  .description("Create a new Express.js project")
-  .option("-n, --name <project-name>", "project name")
-  .option("-l, --language <ts|js>", "language to use (ts or js)")
-  .option("-d, --docker", "include Dockerfile")
-  .option("-s, --src", "include src folder")
-  .option("--structured", "use structured src/ (routes, controllers, services)")
-  .action(async (options) => {
-    await runScaffolder(options);
-  });
+
 
 // Add command for adding features to existing projects
 program
@@ -61,23 +50,25 @@ program
   .description(
     "Add features to an existing kickstart-express project\n\nAvailable features:\n  db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)\n  auth            Add authentication support (JWT or Clerk)"
   )
-  .action(async (feature) => {
-    const adder = new Adder();
+  .option("--db-type <type>", "database type (mongodb, postgres)")
+  .option("--orm <orm>", "ORM/ODM to use (mongoose, prisma, drizzle)")
+  .option("--auth-type <type>", "authentication type (jwt, clerk)")
+  .action(async (feature, options) => {
+    // Extract CLI options for the add command
+    const addOptions = {};
+    if (options.dbType) addOptions.dbType = options.dbType;
+    if (options.orm) addOptions.orm = options.orm;
+    if (options.authType) addOptions.authType = options.authType;
+    
+    const adder = new Adder(addOptions);
     await adder.run(feature);
   });
 
-// Check if this is a legacy command (no subcommand specified)
-const isLegacyCommand =
-  process.argv.length > 2 &&
-  !process.argv.includes("create") &&
-  !process.argv.includes("add") &&
-  !process.argv.includes("--help") &&
-  !process.argv.includes("-h") &&
-  !process.argv.includes("--version") &&
-  !process.argv.includes("-V");
+// Check if this is an "add" command, otherwise default to scaffolding
+const isAddCommand = process.argv.includes("add");
 
-if (isLegacyCommand) {
-  // Handle legacy behavior
+if (!isAddCommand) {
+  // Default behavior - scaffold a new project
   program
     .option("-n, --name <project-name>", "project name")
     .option("-l, --language <ts|js>", "language to use (ts or js)")

@@ -11,7 +11,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.3.0] - Current Version
+## [2.0.0] - Current Version - Major Release
+### Breaking Changes
+- **Removed `create` command**: Scaffolding is now the default behavior when running `kickstart-express`
+- **Simplified CLI structure**: Direct project scaffolding with `kickstart-express [options]`
+
+### Features
+- **Enhanced `add` command**: Comprehensive feature addition for existing projects
+  - **Non-interactive CLI arguments support**:
+    - `--db-type <mongodb|postgres>` - Database type selection
+    - `--orm <mongoose|prisma|drizzle>` - ORM/ODM selection  
+    - `--auth-type <jwt|clerk>` - Authentication type selection
+  - **Intelligent fallback prompting**: When run outside kickstart project, prompts to create new project
+  - **Comprehensive validation**: Prevents invalid combinations (e.g., mongodb+drizzle)
+  - **Interactive mode preserved**: Falls back to prompts when CLI options not provided
+- **Streamlined workflow**: More intuitive command structure with scaffolding as primary action
+- **Enhanced user experience**: Helpful error messages and guidance for invalid operations
+- **Full backward compatibility**: All v1 commands continue to work for seamless migration
+
+### Examples
+```bash
+# v2 Project scaffolding (default behavior)
+kickstart-express --name my-app --language ts --docker
+
+# v2 Non-interactive feature addition
+kickstart-express add db --db-type mongodb --orm mongoose
+kickstart-express add auth --auth-type jwt
+
+# v2 Interactive feature addition 
+kickstart-express add db    # Prompts for database choices
+kickstart-express add auth  # Prompts for auth choices
+```
+
+## [1.3.0] - Previous Version
 ### Features
 - **Graceful Ctrl+C Shutdown**: Added comprehensive SIGINT handling for interrupting project creation
   - Proper cleanup of partially created projects when user cancels with Ctrl+C

@@ -155,37 +155,163 @@ kickstart-express --language js   # JavaScript`}
 
         <section>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">
+            Add Command
+          </h2>
+          <p className="leading-7 mb-6">
+            The add command allows you to extend existing kickstart-express projects with additional features like databases and authentication.
+          </p>
+          
+          <div className="space-y-6">
+            <div>
+              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight mb-4">Basic Syntax</h3>
+              <CodeBlock>kickstart-express add &lt;feature&gt; [options]</CodeBlock>
+            </div>
+
+            <div>
+              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight mb-4">Database Features</h3>
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-mono text-lg">add db --db-type &lt;type&gt; --orm &lt;orm&gt;</CardTitle>
+                    <CardDescription>Add database support with specific database type and ORM.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-semibold">Interactive Mode:</h4>
+                        <CodeBlock showCard={false}>kickstart-express add db</CodeBlock>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Non-Interactive Examples:</h4>
+                        <CodeBlock showCard={false}>{`# MongoDB with Mongoose
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# PostgreSQL with Prisma  
+kickstart-express add db --db-type postgres --orm prisma
+
+# PostgreSQL with Drizzle
+kickstart-express add db --db-type postgres --orm drizzle`}</CodeBlock>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline">--db-type: mongodb, postgres</Badge>
+                        <Badge variant="outline">--orm: mongoose, prisma, drizzle</Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight mb-4">Authentication Features</h3>
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="font-mono text-lg">add auth --auth-type &lt;type&gt;</CardTitle>
+                    <CardDescription>Add authentication support with JWT or Clerk.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="font-semibold">Interactive Mode:</h4>
+                        <CodeBlock showCard={false}>kickstart-express add auth</CodeBlock>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">Non-Interactive Examples:</h4>
+                        <CodeBlock showCard={false}>{`# JWT Authentication
+kickstart-express add auth --auth-type jwt
+
+# Clerk Authentication
+kickstart-express add auth --auth-type clerk`}</CodeBlock>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline">--auth-type: jwt, clerk</Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">
             Usage Examples
           </h2>
           <div className="space-y-4">
             <div>
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Interactive Mode</h3>
+              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Project Scaffolding</h3>
+            </div>
+            
+            <div>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Interactive Mode</h4>
               <p className="leading-7">Start the interactive CLI to configure your project step by step:</p>
               <CodeBlock>kickstart-express</CodeBlock>
             </div>
 
             <div>
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Full Featured Project</h3>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Full Featured Project</h4>
               <p className="leading-7">Create a TypeScript project with all features enabled:</p>
               <CodeBlock>kickstart-express -n my-awesome-api -l ts -d -s --structured</CodeBlock>
             </div>
 
             <div>
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Simple JavaScript Project</h3>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Simple JavaScript Project</h4>
               <p className="leading-7">Create a basic JavaScript project:</p>
               <CodeBlock>kickstart-express --name simple-app --language js</CodeBlock>
             </div>
 
             <div>
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Docker-Ready Project</h3>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Docker-Ready Project</h4>
               <p className="leading-7">Create a project with Docker configuration:</p>
               <CodeBlock>kickstart-express --name docker-api --docker --src</CodeBlock>
             </div>
 
             <div>
-              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Partial Configuration</h3>
-              <p className="leading-7">Provide some options and be prompted for the rest:</p>
-              <CodeBlock>kickstart-express --name my-app --docker</CodeBlock>
+              <h3 className="scroll-m-20 text-xl font-semibold tracking-tight">Feature Addition Workflows</h3>
+            </div>
+
+            <div>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Complete Setup (Interactive)</h4>
+              <p className="leading-7">Create a project and add features interactively:</p>
+              <CodeBlock>{`# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add database (interactive prompts)
+cd my-api
+kickstart-express add db
+
+# 3. Add authentication (interactive prompts)
+kickstart-express add auth`}</CodeBlock>
+            </div>
+
+            <div>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Complete Setup (Non-Interactive)</h4>
+              <p className="leading-7">Create a project and add features with CLI arguments:</p>
+              <CodeBlock>{`# 1. Create project
+kickstart-express --name my-api --language ts --docker --src --structured
+
+# 2. Add MongoDB with Mongoose
+cd my-api
+kickstart-express add db --db-type mongodb --orm mongoose
+
+# 3. Add JWT authentication
+kickstart-express add auth --auth-type jwt`}</CodeBlock>
+            </div>
+
+            <div>
+              <h4 className="scroll-m-20 text-lg font-semibold tracking-tight">Enterprise API with PostgreSQL and Clerk</h4>
+              <p className="leading-7">Create an enterprise-ready API:</p>
+              <CodeBlock>{`# 1. Create project with full structure
+kickstart-express --name enterprise-api --language ts --docker --src --structured
+
+# 2. Add PostgreSQL with Prisma
+cd enterprise-api
+kickstart-express add db --db-type postgres --orm prisma
+
+# 3. Add Clerk authentication
+kickstart-express add auth --auth-type clerk`}</CodeBlock>
             </div>
           </div>
         </section>
