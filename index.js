@@ -42,18 +42,7 @@ program
   )
   .version(version);
 
-// Create command for scaffolding new projects
-program
-  .command("create")
-  .description("Create a new Express.js project")
-  .option("-n, --name <project-name>", "project name")
-  .option("-l, --language <ts|js>", "language to use (ts or js)")
-  .option("-d, --docker", "include Dockerfile")
-  .option("-s, --src", "include src folder")
-  .option("--structured", "use structured src/ (routes, controllers, services)")
-  .action(async (options) => {
-    await runScaffolder(options);
-  });
+
 
 // Add command for adding features to existing projects
 program
@@ -66,18 +55,11 @@ program
     await adder.run(feature);
   });
 
-// Check if this is a legacy command (no subcommand specified)
-const isLegacyCommand =
-  process.argv.length > 2 &&
-  !process.argv.includes("create") &&
-  !process.argv.includes("add") &&
-  !process.argv.includes("--help") &&
-  !process.argv.includes("-h") &&
-  !process.argv.includes("--version") &&
-  !process.argv.includes("-V");
+// Check if this is an "add" command, otherwise default to scaffolding
+const isAddCommand = process.argv.includes("add");
 
-if (isLegacyCommand) {
-  // Handle legacy behavior
+if (!isAddCommand) {
+  // Default behavior - scaffold a new project
   program
     .option("-n, --name <project-name>", "project name")
     .option("-l, --language <ts|js>", "language to use (ts or js)")
