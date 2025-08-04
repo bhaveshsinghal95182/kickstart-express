@@ -192,6 +192,8 @@ vite.config.ts.timestamp-*`;
 
     try {
       await exec("git init", opts);
+      await exec("git add -A", opts);
+      await exec("git commit -am 'Initial commit'", opts);
       console.log("✓ Git repository initialized.");
 
       spinner.start("Installing dependencies with pnpm...");
