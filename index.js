@@ -3,6 +3,15 @@ import { Command } from "commander";
 import { Scaffolder } from "./core/scaffolder.js";
 import { Adder } from "./core/adder.js";
 import chalk from "chalk";
+import fs from "fs-extra";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Get current version from package.json
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const packagePath = path.join(__dirname, "package.json");
+const packageJson = await fs.readJson(packagePath);
+const version = packageJson.version;
 
 const program = new Command();
 
@@ -31,7 +40,7 @@ program
   .description(
     "A powerful CLI tool to quickly scaffold Express.js projects with modern tooling and best practices"
   )
-  .version("1.3.0");
+  .version(version);
 
 // Create command for scaffolding new projects
 program
@@ -50,7 +59,7 @@ program
 program
   .command("add <feature>")
   .description(
-    "Add features to an existing kickstart-express project\n\nAvailable features:\n  db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)"
+    "Add features to an existing kickstart-express project\n\nAvailable features:\n  db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)\n  auth            Add authentication support (JWT or Clerk)"
   )
   .action(async (feature) => {
     const adder = new Adder();
