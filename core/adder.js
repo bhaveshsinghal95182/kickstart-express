@@ -56,12 +56,21 @@ export class Adder {
       case "database":
         await this.addDatabase();
         break;
+      case "auth":
+      case "authentication":
+        await this.addAuthentication();
+        break;
       default:
         console.log(chalk.red(`❌ Unknown feature: ${feature}`));
         console.log(chalk.yellow("\n📋 Available features:"));
         console.log(
           chalk.gray(
             "   db, database    Add database support (MongoDB/PostgreSQL with Mongoose/Prisma/Drizzle)"
+          )
+        );
+        console.log(
+          chalk.gray(
+            "   auth            Add authentication support (JWT or Clerk)"
           )
         );
         console.log(
@@ -283,6 +292,192 @@ export class Adder {
       this.components.features.database = {
         type: dbType,
         orm: orm,
+        added: new Date().toISOString(),
+      };
+
+      await fs.writeJson(this.componentsPath, this.components, { spaces: 2 });
+      console.log(chalk.green("✓ Updated components.json"));
+    } catch (error) {
+      console.log(
+        chalk.yellow("⚠️  Could not update components.json:"),
+        error.message
+      );
+    }
+  }
+
+  async addAuthentication() {
+    console.log(chalk.blue("🔐 Adding authentication support to your project..."));
+    console.log(
+      chalk.gray(
+        `   Project: ${this.components.name} (${this.components.language})`
+      )
+    );
+
+    // Prompt for authentication type
+    const { authType } = await inquirer.prompt([
+      {
+        name: "authType",
+        type: "list",
+        message: "Which authentication method do you want to use?",
+        choices: [
+          { name: "JWT (JSON Web Tokens)", value: "jwt" },
+          { name: "Clerk (Third-party auth service)", value: "clerk" },
+        ],
+      },
+    ]);
+
+    console.log(
+      chalk.green(
+        `\n✅ Selected: ${authType === "jwt" ? "JWT Authentication" : "Clerk Authentication"}`
+      )
+    );
+
+    // Apply the authentication template
+    await this.applyAuthTemplate(authType);
+
+    // Update components.json
+    await this.updateComponentsAuth(authType);
+
+    console.log(chalk.green("\n🎉 Authentication support added successfully!"));
+    console.log(chalk.yellow("\n📝 Next steps:"));
+    
+    if (authType === "jwt") {
+      console.log(chalk.gray("   1. Install dependencies: pnpm install"));
+      console.log(chalk.gray("   2. Configure your JWT secret in .env"));
+      console.log(chalk.gray("   3. Use the auth middleware in your routes"));
+      console.log(chalk.gray("   4. Check the generated files for usage examples"));
+    } else {
+      console.log(chalk.gray("   1. Install dependencies: pnpm install"));
+      console.log(chalk.gray("   2. Set up your Clerk account and get API keys"));
+      console.log(chalk.gray("   3. Configure your Clerk keys in .env"));
+      console.log(chalk.gray("   4. Check the generated files for usage examples"));
+    }
+  }
+
+  async applyAuthTemplate(authType) {
+    const spinner = ora("Adding authentication files...").start();
+
+    try {
+      const templateSource = path.join(
+        this.templatePath,
+        "add",
+        "auth",
+        authType,
+        this.components.language
+      );
+
+      if (!(await fs.pathExists(templateSource))) {
+        spinner.fail(
+          `Template not found for auth/${authType}/${this.components.language}`
+        );
+        return;
+      }
+
+      // Determine the correct destination based on project structure
+      const hasSource = this.components.architecture.src;
+
+      // Copy authentication files
+      if (hasSource) {
+        const srcDir = path.join(this.currentDir, "src");
+        await fs.copy(templateSource, srcDir, {
+          overwrite: false, // Don't overwrite existing files
+          errorOnExist: false,
+        });
+      } else {
+        await fs.copy(templateSource, this.currentDir, {
+          overwrite: false,
+          errorOnExist: false,
+        });
+      }
+
+      // Update package.json with new dependencies
+      await this.updatePackageJsonAuth(authType);
+
+      // Update .env with authentication configuration
+      await this.updateEnvFileAuth(authType);
+
+      spinner.succeed("Authentication files added successfully");
+    } catch (error) {
+      spinner.fail("Failed to add authentication files");
+      console.log(chalk.red("Error:"), error.message);
+    }
+  }
+
+  async updatePackageJsonAuth(authType) {
+    try {
+      const pkg = await fs.readJson(this.packagePath);
+
+      // Add dependencies based on authentication type
+      const dependencies = this.getAuthDependencies(authType);
+
+      pkg.dependencies = pkg.dependencies || {};
+      Object.assign(pkg.dependencies, dependencies);
+
+      await fs.writeJson(this.packagePath, pkg, { spaces: 2 });
+      console.log(chalk.green("✓ Updated package.json with new dependencies"));
+    } catch (error) {
+      console.log(
+        chalk.yellow("⚠️  Could not update package.json:"),
+        error.message
+      );
+    }
+  }
+
+  getAuthDependencies(authType) {
+    const deps = {};
+
+    if (authType === "jwt") {
+      deps["jsonwebtoken"] = "^9.0.0";
+      deps["bcryptjs"] = "^2.4.3";
+      deps["dotenv"] = "^16.3.0";
+      if (this.components.language === "ts") {
+        deps["@types/jsonwebtoken"] = "^9.0.0";
+        deps["@types/bcryptjs"] = "^2.4.0";
+      }
+    } else if (authType === "clerk") {
+      deps["@clerk/express"] = "^1.0.0";
+      deps["dotenv"] = "^16.3.0";
+    }
+
+    return deps;
+  }
+
+  async updateEnvFileAuth(authType) {
+    try {
+      const envPath = path.join(this.currentDir, ".env");
+      let envContent = "";
+
+      if (await fs.pathExists(envPath)) {
+        envContent = await fs.readFile(envPath, "utf8");
+      }
+
+      // Add authentication configuration
+      let authConfig = "";
+      if (authType === "jwt") {
+        authConfig = "\n# JWT Authentication Configuration\nJWT_SECRET=your-super-secret-jwt-key-change-this-in-production\nJWT_EXPIRES_IN=7d\n";
+      } else if (authType === "clerk") {
+        authConfig = "\n# Clerk Authentication Configuration\nCLERK_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY\nCLERK_SECRET_KEY=YOUR_SECRET_KEY\n";
+      }
+
+      // Only add if not already present
+      if (!envContent.includes("Authentication Configuration")) {
+        envContent += authConfig;
+        await fs.writeFile(envPath, envContent);
+        console.log(chalk.green("✓ Updated .env with authentication configuration"));
+      }
+    } catch (error) {
+      console.log(
+        chalk.yellow("⚠️  Could not update .env file:"),
+        error.message
+      );
+    }
+  }
+
+  async updateComponentsAuth(authType) {
+    try {
+      this.components.features = this.components.features || {};
+      this.components.features.authentication = {
+        type: authType,
         added: new Date().toISOString(),
       };
 
