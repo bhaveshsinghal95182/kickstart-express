@@ -269,8 +269,8 @@ vite.config.ts.timestamp-*`;
 
       // Show suggestion if user chooses no src folder
       if (!src) {
-        console.log("\n" + chalk.blue("💡 Suggestion:"), chalk.yellow("For best use of Kickstart.express, consider using a 'src' folder with structured architecture."));
-        console.log("  ", chalk.gray("This provides better organization with controllers, services, and routes separation."));
+  console.log("\n" + chalk.blue("💡 Suggestion:"), chalk.yellow("For best use of Kickstart.express, consider using a 'src' folder with structured architecture."));
+  console.log("  ", chalk.gray("This provides better organization with controllers, services, and router separation."));
         console.log("  ", chalk.gray("You can still proceed with your current choice.\n"));
       }
     }
@@ -281,7 +281,7 @@ vite.config.ts.timestamp-*`;
         {
           name: "structured",
           type: "confirm",
-          message: "Use structured src/ (routes, controllers, services)?",
+          message: "Use structured src/ (router, controllers, services)?",
         },
       ]);
       this.options.structuredSrc = structured;
@@ -424,7 +424,7 @@ vite.config.ts.timestamp-*`;
     if (!this.options.src) {
       config.suggestion = {
         recommended: "src-structured",
-        reason: "Better organization and scalability for Express.js applications. Consider using 'src' folder with structured architecture (controllers, services, routes) for best use of Kickstart.express."
+  reason: "Better organization and scalability for Express.js applications. Consider using 'src' folder with structured architecture (controllers, services, router) for best use of Kickstart.express."
       };
     }
 
