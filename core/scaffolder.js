@@ -365,7 +365,11 @@ vite.config.ts.timestamp-*`;
     // Update package.json name
     const pkgPath = path.join(dest, "package.json");
     const pkg = await fs.readJson(pkgPath);
-    pkg.name = this.projectName;
+    if (this.projectName === ".") {
+      pkg.name = path.basename(process.cwd());
+    } else {
+      pkg.name = this.projectName;
+    }
     
     // Update scripts based on src folder choice
     if (this.options.src) {
@@ -374,8 +378,6 @@ vite.config.ts.timestamp-*`;
         pkg.scripts.start = "node src/index.js";
       } else if (this.options.language === "ts") {
         pkg.scripts.dev = "tsx watch src/index.ts";
-        // build and start scripts remain the same for TS with src folder
-        // as tsconfig.json is already configured for src folder
       }
     } else {
       // No src folder - update TypeScript tsconfig.json if needed
