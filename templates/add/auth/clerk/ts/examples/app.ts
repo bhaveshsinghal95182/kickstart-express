@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { clerkClient } from '@clerk/express';
-import { clerkAuth, protectedRoute, optionalAuth, customProtection } from './middleware/auth';
+import { clerkAuth, protectedRoute, optionalAuth, customProtection } from '../middleware/auth';
 
 const app = express();
 app.use(express.json());
@@ -16,7 +16,7 @@ app.get('/public', (req, res) => {
 
 // Example: Route with optional auth (shows user info if authenticated)
 app.get('/optional-auth', optionalAuth, (req, res) => {
-  if (req.auth.userId) {
+  if (req.auth && req.auth.userId) {
     res.json({ 
       message: 'You are authenticated!',
       userId: req.auth.userId 
@@ -32,8 +32,9 @@ app.get('/optional-auth', optionalAuth, (req, res) => {
 app.get('/protected', protectedRoute, async (req, res) => {
   try {
     // Get the user's information from Clerk
-    const user = await clerkClient.users.getUser(req.auth.userId);
-    
+    const userId = req.auth?.userId;
+    if (!userId) return res.status(401).json({ error: 'Authentication required' });
+    const user = await clerkClient.users.getUser(userId);
     res.json({ 
       message: 'This is a protected route',
       user: {
@@ -51,8 +52,9 @@ app.get('/protected', protectedRoute, async (req, res) => {
 // Example: Route with custom protection (API-style, returns JSON instead of redirecting)
 app.get('/api/user', customProtection, async (req, res) => {
   try {
-    const user = await clerkClient.users.getUser(req.auth.userId);
-    
+    const userId = req.auth?.userId;
+    if (!userId) return res.status(401).json({ error: 'Authentication required' });
+    const user = await clerkClient.users.getUser(userId);
     res.json({
       id: user.id,
       email: user.emailAddresses[0]?.emailAddress,
@@ -68,10 +70,9 @@ app.get('/api/user', customProtection, async (req, res) => {
 // Example: Route with permission check
 app.get('/admin', customProtection, (req, res) => {
   // Check if user has admin permission
-  if (!req.auth.has({ permission: 'org:admin' })) {
+  if (!req.auth || !req.auth.has({ permission: 'org:admin' })) {
     return res.status(403).json({ error: 'Admin permission required' });
   }
-  
   res.json({ 
     message: 'Admin-only content',
     userId: req.auth.userId 

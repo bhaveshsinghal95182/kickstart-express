@@ -6,7 +6,7 @@ import {
   protectedRoute,
   optionalAuth,
   customProtection,
-} from "./middleware/auth.js";
+} from "../middleware/auth.js";
 
 const app = express();
 app.use(express.json());
