@@ -6,7 +6,7 @@ import { promisify } from "util";
 import ora from "ora";
 import chalk from "chalk";
 import { fileURLToPath } from "url";
-import { getGitignoreContent } from "./lib/constants";
+import { getGitignoreContent } from "./lib/constants.js";
 
 const exec = promisify(execCallback);
 
