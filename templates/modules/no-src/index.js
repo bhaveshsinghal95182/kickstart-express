@@ -13,10 +13,10 @@ app.use(
   cors({
     origin: "*",
     methods: ["POST", "PUT", "GET", "DELETE"],
-  })
+  }),
 );
 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   const { a, b } = req.body;
   const c = a + b;
   res.send({ answer: c });
